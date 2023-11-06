@@ -1,6 +1,9 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
+
+import Toast from '@/app/components/Toast';
+
 import './globals.css';
 
 const font = Noto_Sans_KR({ subsets: ['latin'] });
@@ -23,6 +26,7 @@ export default function RootLayout({
           className="relative mx-auto h-[100dvh] max-h-[926px] w-full max-w-[428px] overflow-y-hidden bg-[#282828]"
         >
           {children}
+          <Toast />
         </div>
       </body>
     </html>
