@@ -21,21 +21,19 @@ const NaverLoginButton = () => {
     <>
       {session && (
         <button
-          className="relative flex w-full justify-center gap-3 rounded-lg bg-green-500 py-4 text-lg font-extrabold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70"
+          className="relative flex h-14 w-full select-none justify-center gap-3 rounded-lg bg-green-500 text-lg font-extrabold text-white transition hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-70"
           onClick={logOut}
         >
-          <p></p>
           {'로그아웃'}
         </button>
       )}
       {!session && (
         <button
-          className="relative flex w-full justify-center gap-3 rounded-lg bg-green-500 py-4 text-lg font-extrabold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70"
+          className="relative flex h-14 w-full select-none items-center justify-center gap-3 rounded-lg bg-green-500 text-lg font-extrabold text-white transition hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-70"
           onClick={naverLogin}
         >
-          <SiNaver size={24} className=" " />
-          <p></p>
-          {'네이버로 시작하기'}
+          <SiNaver size={24} />
+          {'네이버로 계속하기'}
         </button>
       )}
       {session && <pre>{JSON.stringify(session, null, 4)}</pre>}

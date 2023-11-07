@@ -25,7 +25,7 @@ export default function RootLayout({
         <NextAuthProvider>
           <div
             id="container"
-            className="relative mx-auto h-[100dvh] max-h-[926px] w-full max-w-[428px] overflow-y-hidden border-[1px] border-black bg-white text-gray-900"
+            className="relative mx-auto h-[100dvh] max-h-[926px] w-full max-w-[428px] select-none overflow-x-hidden overflow-y-hidden border-[1px] border-black bg-white text-gray-900"
           >
             {children}
             <Toast />

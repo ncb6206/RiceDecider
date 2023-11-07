@@ -26,17 +26,12 @@ const Button = ({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`relative w-full rounded-lg transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70
+      className={`relative h-14 w-full select-none rounded-lg border-2 text-lg font-medium transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70
   ${
     outline
       ? 'border-[1px] border-rose-500 bg-white text-rose-500'
       : 'border-rose-500 bg-rose-500 text-white'
-  } 
-  ${
-    small
-      ? 'border-[1px] py-1 text-sm font-light'
-      : ' text-md border-2 py-3 font-semibold'
-  } 
+  }   
   ${classNames && classNames}
   `}
     >

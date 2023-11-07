@@ -9,10 +9,10 @@ const Toast = () => {
       reverseOrder={false}
       toastOptions={{
         style: {
-          backgroundColor: 'white',
+          backgroundColor: '#322F35',
           fontWeight: 500,
           padding: '12px 16px',
-          color: 'black',
+          color: 'white',
           fontSize: 15,
           height: 47,
         },
