@@ -1,22 +1,45 @@
 'use client';
 
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { SiNaver } from 'react-icons/si';
-
-import Button from '@/app/components/Button';
+// import { useRouter } from 'next/navigation';
 
 const NaverLoginButton = () => {
+  // const router = useRouter();
+  const { data: session } = useSession();
+
   const naverLogin = () => {
-    console.log('네이버 로그인');
+    // router.push(`${process.env.BASE_URL}/oauth2/authorization/naver`);
+    signIn('naver', { redirect: true, callbackUrl: '/' });
+  };
+
+  const logOut = () => {
+    signOut();
   };
 
   return (
-    <Button
-      label="네이버로 로그인"
-      onClick={naverLogin}
-      icon={SiNaver}
-      outline={true}
-      classNames="text-green-500 text-lg font-extrabold"
-    />
+    <>
+      {session && (
+        <button
+          className="relative flex w-full justify-center gap-3 rounded-lg bg-green-500 py-4 text-lg font-extrabold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={logOut}
+        >
+          <p></p>
+          {'로그아웃'}
+        </button>
+      )}
+      {!session && (
+        <button
+          className="relative flex w-full justify-center gap-3 rounded-lg bg-green-500 py-4 text-lg font-extrabold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70"
+          onClick={naverLogin}
+        >
+          <SiNaver size={24} className=" " />
+          <p></p>
+          {'네이버로 시작하기'}
+        </button>
+      )}
+      {session && <pre>{JSON.stringify(session, null, 4)}</pre>}
+    </>
   );
 };
 

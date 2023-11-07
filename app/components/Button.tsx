@@ -29,7 +29,7 @@ const Button = ({
       className={`relative w-full rounded-lg transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-70
   ${
     outline
-      ? 'border-black bg-white text-black'
+      ? 'border-[1px] border-rose-500 bg-white text-rose-500'
       : 'border-rose-500 bg-rose-500 text-white'
   } 
   ${
@@ -40,7 +40,7 @@ const Button = ({
   ${classNames && classNames}
   `}
     >
-      {Icon && <Icon size={24} className="absolute left-4 top-3" />}
+      {Icon && <Icon size={24} className="absolute left-4 top-3 " />}
       {label}
     </button>
   );
