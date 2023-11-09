@@ -8,6 +8,9 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['search.pstatic.net'],
+  },
 };
 
 module.exports = nextConfig;
