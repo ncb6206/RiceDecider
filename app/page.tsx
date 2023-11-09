@@ -1,13 +1,20 @@
-import NaverLoginButton from '@/app/components/NaverLoginButton';
+import MainCover from '@/app/components/MainCover';
+import HomeFooter from '@/app/components/HomeFooter';
 
-export default function Home() {
+const Home = () => {
   return (
-    <main className="flex h-full flex-col text-white">
-      <div className="mx-auto mt-4">밥정너</div>
-      <div className="flex-1"></div>
-      <div className="p-2 ">
-        <NaverLoginButton />
+    <main className="relative flex h-full flex-col bg-rose-500 text-white">
+      <div className="ml-6 mt-[8rem] font-Pretendard text-xl font-medium">
+        <p>밥은 정해져있어</p>
+        <p>너는 고르기만 해</p>
+        <p className="mt-5 font-SBAggro text-5xl tracking-widest">밥정너</p>
       </div>
+      <div className="flex flex-auto items-center justify-center">
+        <MainCover />
+      </div>
+      <HomeFooter />
     </main>
   );
-}
+};
+
+export default Home;
