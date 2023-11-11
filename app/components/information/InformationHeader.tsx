@@ -1,6 +1,6 @@
 'use client';
 
-import { AiOutlineHeart, AiFillHeart, AiOutlineLeft } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineLeft } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
 
 import Header from '@/app/components/Header';
