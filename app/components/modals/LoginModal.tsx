@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import Modal from './Modal';
 
 import useLoginModal from '@/app/hooks/useLoginModal';
@@ -9,7 +9,10 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    setIsLoading(true);
+    setIsLoading(false);
+  };
 
   return (
     <>

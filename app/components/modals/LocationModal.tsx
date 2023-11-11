@@ -1,15 +1,36 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Modal from './Modal';
 
 import useLocationModal from '@/app/hooks/useLocationModal';
+import { useAddress } from '@/app/hooks/useAddress';
+import { getRecommend } from '@/app/services/recommend';
 
 const LocationModal = () => {
   const locationModal = useLocationModal();
   const [isLoading, setIsLoading] = useState(false);
+  const { location, address, error } = useAddress();
 
-  const onSubmit = () => {};
+  const getMenu = async () => {
+    const imsi = await getRecommend();
+
+    console.log(imsi);
+  };
+
+  useEffect(() => {
+    getMenu();
+  }, []);
+
+  const onSubmit = async () => {
+    setIsLoading(true);
+
+    const imsi = await getRecommend();
+    console.log(location, address, error);
+    console.log(imsi);
+    locationModal.onClose();
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -18,8 +39,8 @@ const LocationModal = () => {
         isOpen={locationModal.isOpen}
         content={
           <p className="text-center text-base font-medium">
-            &apos;네이버 지도&apos;에서 현재 위치 정보를 <br /> 사용하고자
-            합니다.
+            주변 식당을 추천해드릴게요. <br /> 위치 정보를 사용하도록
+            허용하시겠습니까?
           </p>
         }
         leftLabel="차단"
