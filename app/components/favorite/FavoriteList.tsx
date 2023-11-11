@@ -16,6 +16,7 @@ const FavoriteList = () => {
             />
           );
         })}
+
       {!FavoriteData && (
         <div className=" flex h-full flex-col items-center justify-center gap-4">
           <Logo fill="#E14E4B" width="70" height="70" />
@@ -33,9 +34,6 @@ export default FavoriteList;
 const FavoriteData = [
   { title: '식당이름1', category: '카테고리1', distance: '1.2' },
   { title: '식당이름2', category: '카테고리2', distance: '1.3' },
-  { title: '식당이름3', category: '카테고리3', distance: '1.4' },
-  { title: '식당이름3', category: '카테고리3', distance: '1.4' },
-  { title: '식당이름3', category: '카테고리3', distance: '1.4' },
   { title: '식당이름3', category: '카테고리3', distance: '1.4' },
   { title: '식당이름3', category: '카테고리3', distance: '1.4' },
 ];
