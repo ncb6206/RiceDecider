@@ -1,21 +1,17 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { SiNaver } from 'react-icons/si';
 // import { useRouter } from 'next/navigation';
 
 const NaverLoginButton = () => {
+  const session = false;
   // const router = useRouter();
-  const { data: session } = useSession();
 
   const naverLogin = () => {
     // router.push(`${process.env.BASE_URL}/oauth2/authorization/naver`);
-    signIn('naver', { redirect: true, callbackUrl: '/' });
   };
 
-  const logOut = () => {
-    signOut();
-  };
+  const logOut = () => {};
 
   return (
     <>
