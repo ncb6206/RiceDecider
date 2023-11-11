@@ -4,10 +4,19 @@ import RecommendFooter from '@/app/components/recommend/RecommendFooter';
 import RecommendHeader from '@/app/components/recommend/RecommendHeader';
 import RecommendList from '@/app/components/recommend/RecommendList';
 import RecommendTitle from '@/app/components/recommend/RecommendTitle';
+import useRecommendStore from '@/app/hooks/useRecommend';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
+import { useRouter } from 'next/navigation';
 
 const RecommendClient = () => {
+  const router = useRouter();
   const useSwipe = useSwipeStore(state => state);
+  const useRecommend = useRecommendStore(state => state);
+
+  if (useRecommend.recommendData.length === 0) {
+    router.push('/category');
+    return null;
+  }
 
   return (
     <main
