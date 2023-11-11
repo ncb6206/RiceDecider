@@ -1,29 +1,46 @@
 'use client';
 
 import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import './slick.css';
 
 import RecommendCard from '@/app/components/recommend/RecommendCard';
+import useSwipeStore from '@/app/hooks/useSwipeStore';
 
 const RecommendList = () => {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
+    appendDots: (dots: any) => (
+      <div
+        style={{
+          width: '100%',
+          marginTop: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ul> {dots} </ul>
+      </div>
+    ),
+    dotsClass: 'dots_custom',
   };
-
-  const swipe = true;
+  const useSwipe = useSwipeStore();
 
   return (
     <>
       <div className={`w-4/5`}>
         <Slider {...settings}>
-          {swipe &&
+          {useSwipe.isSwipe &&
             RecommendData &&
             RecommendData?.map((recommend, i) => {
               return (
                 <RecommendCard
                   key={i}
-                  swipe={swipe}
+                  swipe={useSwipe.isSwipe}
                   imageSrc={recommend.imageSrc}
                   name={recommend.name}
                   keywordList={recommend.keywordList}
@@ -35,13 +52,13 @@ const RecommendList = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-2">
-        {!swipe &&
+        {!useSwipe.isSwipe &&
           RecommendData &&
           RecommendData?.map((recommend, i) => {
             return (
               <RecommendCard
                 key={i}
-                swipe={swipe}
+                swipe={useSwipe.isSwipe}
                 imageSrc={recommend.imageSrc}
                 name={recommend.name}
                 keywordList={recommend.keywordList}

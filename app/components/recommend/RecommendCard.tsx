@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 interface RecommnedCardProps {
@@ -18,12 +19,17 @@ const RecommendCard = ({
   keywordList,
   distance,
 }: RecommnedCardProps) => {
+  const router = useRouter();
   const favorite = false;
+
+  const goInformation = () => {
+    router.push('/information');
+  };
 
   return (
     <>
       {swipe && (
-        <div className="flex flex-col gap-2 rounded-lg bg-white p-4 shadow-2xl">
+        <div className="shadow-3xl flex flex-col gap-2 rounded-lg bg-white p-4">
           <Image
             src={imageSrc}
             alt="사진"
@@ -32,7 +38,12 @@ const RecommendCard = ({
             className="mb-2 mt-4 h-[22rem] w-[20rem]"
           />
           <div className="flex justify-between">
-            <p className="font-SBAggro text-3xl text-gray-900">{name}</p>
+            <p
+              onClick={goInformation}
+              className="cursor-pointer font-SBAggro text-3xl text-gray-900"
+            >
+              {name}
+            </p>
             <div className="cursor-pointer">
               {!favorite && <AiOutlineHeart size={26} />}
               {favorite && <AiFillHeart size={26} className="text-rose-500" />}
@@ -50,7 +61,7 @@ const RecommendCard = ({
       )}
 
       {!swipe && (
-        <div className="relative flex flex-col rounded-lg bg-white shadow-2xl">
+        <div className="relative flex flex-col rounded-lg bg-white shadow-md">
           <Image
             src={imageSrc}
             alt="사진"
