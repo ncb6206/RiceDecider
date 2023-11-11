@@ -1,32 +1,45 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Modal from './Modal';
 
 import useLocationModal from '@/app/hooks/useLocationModal';
 import { useAddress } from '@/app/hooks/useAddress';
 import { getRecommend } from '@/app/services/recommend';
+import useRecommendStore, { recommendProps } from '@/app/hooks/useRecommend';
+import { getImage } from '@/app/services/image';
 
 const LocationModal = () => {
+  const router = useRouter();
   const locationModal = useLocationModal();
-  const [isLoading, setIsLoading] = useState(false);
   const { location, address, error } = useAddress();
-
-  const getMenu = async () => {
-    const imsi = await getRecommend();
-    console.log(imsi);
-  };
-
-  useEffect(() => {
-    getMenu();
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
     setIsLoading(true);
 
-    const imsi = await getRecommend();
-    console.log(location, address, error);
-    console.log(imsi);
+    console.log(location, address.data.results[0].region, error);
+    const response: any = await getRecommend();
+
+    if (response.status === 200) {
+      useRecommendStore.setState({
+        recommendData: response.data.items.slice(0, 4),
+      });
+
+      Promise.all(
+        response.data.items.slice(0, 4).map(async (item: recommendProps) => {
+          const imageUrl: any = await getImage(item.title);
+          return imageUrl.data.items[0].link;
+        }),
+      ).then(imageUrls => {
+        useRecommendStore.setState({
+          recommendImage: imageUrls,
+        });
+      });
+
+      router.push('/recommend');
+    }
     locationModal.onClose();
     setIsLoading(false);
   };

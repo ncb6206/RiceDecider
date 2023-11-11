@@ -1,14 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Button from '@/app/components/button/Button';
 import ResultButton from '@/app/components/button/ResultButton';
 import useLocationModal from '@/app/hooks/useLocationModal';
 import useQuestionStore from '@/app/hooks/useQuestionStore';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 const QuestionFooter = () => {
-  const router = useRouter();
   const useQuestion = useQuestionStore();
   const useLocation = useLocationModal();
 
@@ -44,7 +43,6 @@ const QuestionFooter = () => {
 
   const onClickFinished = () => {
     useLocation.onOpen();
-    router.push('recommend');
   };
 
   return (
