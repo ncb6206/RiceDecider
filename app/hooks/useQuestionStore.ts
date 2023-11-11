@@ -13,6 +13,7 @@ interface QuestionStore {
   questionData: Array<QuestionDataProps>;
   onToggleSelect: (index: number) => void;
   onResetSelected: () => void;
+  onResetNumber: () => void;
 }
 
 const useQuestionStore = create<QuestionStore>(set => ({
@@ -66,6 +67,7 @@ const useQuestionStore = create<QuestionStore>(set => ({
       console.log('onResetSelected 실행', newSelected);
       return { selected: newSelected };
     }),
+  onResetNumber: () => set({ questionNumber: 0, finished: false }),
 }));
 
 export default useQuestionStore;
