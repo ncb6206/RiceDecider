@@ -1,31 +1,53 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
+import useCategoryStore, {
+  CategoryDataType,
+} from '@/app/hooks/useCategoryStore';
+import { useRouter } from 'next/navigation';
 
 const CategoryFooter = () => {
-  const [disable, setDisable] = useState(true);
+  const router = useRouter();
+  const CategoryStore = useCategoryStore();
+  const [disabled, setDisabled] = useState(true);
+  const [selectedList, setSelectedList] = useState<CategoryDataType[]>([]);
 
-  const onClick = () => {};
+  useEffect(() => {
+    const selectedList = CategoryStore.categoryData.filter(
+      item => item.select === true,
+    );
+    setSelectedList(selectedList);
 
-  const onClickText = () => {};
+    if (selectedList.length > 0) {
+      return setDisabled(false);
+    }
+
+    setDisabled(true);
+  }, [CategoryStore.categoryData]);
+
+  const onClick = () => {
+    console.log(selectedList);
+    router.push('/question');
+    CategoryStore.onResetSelected();
+  };
+
+  const onReset = () => {
+    CategoryStore.onResetSelected();
+  };
 
   return (
     <div className="my-2 mb-10 flex w-full flex-col gap-5">
       <Button
         label="결정"
-        disabled={disable}
+        disabled={disabled}
         onClick={onClick}
         outline={false}
         className="rounded-3xl"
       />
-      <TextButton
-        label="선택 초기화"
-        onClick={onClickText}
-        className="mx-auto"
-      />
+      <TextButton label="선택 초기화" onClick={onReset} className="mx-auto" />
     </div>
   );
 };

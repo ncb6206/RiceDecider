@@ -1,36 +1,35 @@
 'use client';
 
-import React, { SVGProps, useState } from 'react';
+import useCategoryStore from '@/app/hooks/useCategoryStore';
+import React, { SVGProps } from 'react';
 
 interface CategoryCardProps {
+  id: number;
   icon: React.FC<SVGProps<SVGSVGElement>>;
   label: string;
   select: boolean;
 }
 
-const CategoryCard = ({ icon: Icon, label, select }: CategoryCardProps) => {
-  const [selected, setSelected] = useState(select);
+const CategoryCard = ({ id, icon: Icon, label, select }: CategoryCardProps) => {
+  const CategoryStore = useCategoryStore();
 
-  const onClickSelect = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setSelected(prev => !prev);
+  const onClickSelect = () => {
+    CategoryStore.onToggleSelect(id);
   };
 
   return (
     <div
       className={`m-2 inline-flex flex-col items-center justify-center gap-3 rounded-lg border px-2 py-5 hover:cursor-pointer hover:bg-red-400 ${
-        selected ? 'bg-red-500' : 'bg-white'
+        select ? 'bg-red-500' : 'bg-white'
       }`}
       onClick={onClickSelect}
     >
       <Icon
-        className={`relative h-10 w-10 ${
-          selected ? 'fill-white' : 'fill-black'
-        }`}
+        className={`relative h-10 w-10 ${select ? 'fill-white' : 'fill-black'}`}
       />
       <div
         className={`text-md text-center font-['Pretendard'] font-medium  ${
-          selected ? 'text-white' : 'text-black'
+          select ? 'text-white' : 'text-black'
         }`}
       >
         {label}
