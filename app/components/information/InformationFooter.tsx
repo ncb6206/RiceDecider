@@ -1,9 +1,19 @@
 'use client';
 
 import Button from '@/app/components/button/Button';
+import useRecommendStore from '@/app/hooks/useRecommend';
 
 const InformationFooter = () => {
-  const onClick = () => {};
+  const useRecommend = useRecommendStore(state => state);
+
+  const onClick = () => {
+    window.open(
+      `https://map.naver.com/p/search/${useRecommend.recommend.title.replace(
+        /<\/?[^>]+(>|$)/g,
+        '',
+      )}`,
+    );
+  };
 
   return (
     <div className="mb-8 mt-2 w-full px-3">
