@@ -1,11 +1,16 @@
 'use client';
 
 import Title from '@/app/components/Title';
+import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const QuestionTitle = () => {
+  const useQuestion = useQuestionStore(state => state);
+
   return (
     <div className="my-5 w-full">
-      <Title title="몇 명이서 먹을건가요?" />
+      <Title
+        title={useQuestion.questionData[useQuestion.questionNumber].question}
+      />
     </div>
   );
 };

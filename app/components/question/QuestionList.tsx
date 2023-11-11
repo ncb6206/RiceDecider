@@ -1,30 +1,27 @@
 'use client';
 
-import QuestionButton from '@/app/components/button/QuestionButton';
+import QuestionButton from '@/app/components/question/QuestionButton';
+import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const QuestionList = () => {
+  const useQuestion = useQuestionStore(state => state);
+
   return (
     <div className="my-4 flex w-full flex-col gap-4">
-      {questionList &&
-        questionList.map((question, index) => {
-          return (
-            <QuestionButton
-              key={index}
-              label={question.label}
-              selected={question.selected}
-            />
-          );
-        })}
+      {/* {useQuestion.questionData &&
+        useQuestion.questionData.map((question, index) =>
+          question.answers.map((answer, i) => {
+            return <QuestionButton key={i} label={answer} selected={true} />;
+          }),
+        )} */}
+      {useQuestion.questionData &&
+        useQuestion.questionData
+          .filter((_, index) => index === useQuestion.questionNumber)[0]
+          .answers.map((answer, i) => {
+            return <QuestionButton key={i} index={i} label={answer} />;
+          })}
     </div>
   );
 };
 
 export default QuestionList;
-
-const questionList = [
-  { label: '1인', selected: false },
-  { label: '2인', selected: false },
-  { label: '3인', selected: true },
-  { label: '4인', selected: false },
-  { label: '5인', selected: false },
-];
