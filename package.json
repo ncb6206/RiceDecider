@@ -56,5 +56,9 @@
       "prettier --cache --write",
       "eslint --cache --fix"
     ]
-  }
+  },
+  "proxy": [
+    "https://openapi.naver.com",
+    "https://naveropenapi.apigw.ntruss.com"
+  ]
 }

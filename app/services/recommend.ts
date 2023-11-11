@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getRecommend = async () => {
   try {
     const response = await axios.get(
-      `https://openapi.naver.com/v1/search/local.json?query=일산 소고기&display=5&start=1&sort=comment`,
+      `/v1/search/image?query=임가네한우마을&display=5&start=5&sort=date`,
       {
         headers: {
           'X-Naver-Client-Id': process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,

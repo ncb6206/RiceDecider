@@ -5,7 +5,7 @@ import { ILocation } from '@/app/hooks/useGeoLocation';
 export const getAddress = async ({ longitude, latitude }: ILocation) => {
   try {
     const response = await axios.get(
-      `https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords=${
+      `/v2/gc?coords=${
         String(longitude) + ',' + String(latitude)
       }&output=json&orders=addr`,
       {

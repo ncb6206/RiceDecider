@@ -14,7 +14,6 @@ const LocationModal = () => {
 
   const getMenu = async () => {
     const imsi = await getRecommend();
-
     console.log(imsi);
   };
 
