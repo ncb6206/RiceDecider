@@ -10,7 +10,16 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['search.pstatic.net'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   async rewrites() {
     return [
