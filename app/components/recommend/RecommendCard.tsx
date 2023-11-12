@@ -35,7 +35,7 @@ const RecommendCard = ({
         imageSrc,
       },
     });
-    router.push('/information');
+    router.push(`/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}`);
   };
 
   return (

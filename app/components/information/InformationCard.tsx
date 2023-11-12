@@ -14,8 +14,9 @@ const InformationCard = () => {
         <Image
           src={useRecommend.recommend.imageSrc}
           alt="매장 사진"
-          width="500"
-          height="500"
+          width={400}
+          height={400}
+          className="h-[22rem] w-full"
         />
       )}
       <div className="flex flex-col gap-3 p-6 font-medium">
