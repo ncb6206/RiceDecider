@@ -1,14 +1,15 @@
 'use client';
 
 import { SiNaver } from 'react-icons/si';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const NaverLoginButton = () => {
   const session = false;
-  // const router = useRouter();
+  const router = useRouter();
 
   const naverLogin = () => {
     // router.push(`${process.env.BASE_URL}/oauth2/authorization/naver`);
+    router.push('/category');
   };
 
   const logOut = () => {};
