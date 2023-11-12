@@ -30,7 +30,10 @@ const LocationModal = () => {
       Promise.all(
         response.data.items.slice(0, 4).map(async (item: recommendProps) => {
           const imageUrl: any = await getImage(item.title);
-          return imageUrl.data.items[0].link;
+          if (imageUrl.status === 200) {
+            return imageUrl.data.items[0].link;
+          }
+          return 'https://source.unsplash.com/random/?cat';
         }),
       ).then(imageUrls => {
         useRecommendStore.setState({
