@@ -20,7 +20,7 @@ const LocationModal = () => {
     setIsLoading(true);
 
     console.log(location, address.data.results[0].region, error);
-    const response: any = await getRecommend();
+    const response: any = await getRecommend('일산 소고기');
 
     if (response.status === 200) {
       useRecommendStore.setState({
