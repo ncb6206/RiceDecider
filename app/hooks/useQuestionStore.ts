@@ -11,6 +11,8 @@ interface QuestionStore {
   finished: boolean;
   selected: Array<boolean>;
   questionData: Array<QuestionDataProps>;
+  questionList: Array<string>;
+  answerList: Array<string>;
   onToggleSelect: (index: number) => void;
   onResetSelected: () => void;
   onResetNumber: () => void;
@@ -22,6 +24,8 @@ const useQuestionStore = create<QuestionStore>(set => ({
   disabled: true,
   finished: false,
   selected: [],
+  questionList: [],
+  answerList: [],
   questionData: [
     {
       question: '몇명이서 먹을건가요?',

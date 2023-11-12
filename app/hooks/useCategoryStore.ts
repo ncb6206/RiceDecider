@@ -17,6 +17,7 @@ import Snack from '@/public/food/snack.svg';
 export interface CategoryDataType {
   icon: React.FC<React.SVGProps<SVGSVGElement>>;
   label: string;
+  name: string;
   select: boolean;
 }
 

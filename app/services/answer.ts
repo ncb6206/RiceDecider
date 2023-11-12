@@ -2,9 +2,7 @@ import instance from './config';
 
 export const getAnswerList = async () => {
   try {
-    const response = await instance.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/answerList`,
-    );
+    const response = await instance.get(`/api/answerList`);
 
     if (response.status === 200) {
       return response;
@@ -18,9 +16,7 @@ export const getAnswerList = async () => {
 
 export const getAnswer = async (index: number) => {
   try {
-    const response = await instance.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/answer/question/${index}`,
-    );
+    const response = await instance.get(`/api/answer/question/${index}`);
 
     if (response.status === 200) {
       return response;
