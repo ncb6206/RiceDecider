@@ -1,17 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
 import useCategoryStore, {
   CategoryDataType,
 } from '@/app/hooks/useCategoryStore';
-import { useRouter } from 'next/navigation';
+import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const CategoryFooter = () => {
   const router = useRouter();
   const CategoryStore = useCategoryStore();
+  const QuestionStore = useQuestionStore();
   const [disabled, setDisabled] = useState(true);
   const [selectedList, setSelectedList] = useState<CategoryDataType[]>([]);
 
@@ -30,6 +32,7 @@ const CategoryFooter = () => {
 
   const onClick = () => {
     console.log(selectedList);
+    QuestionStore.onCreateSelect();
     router.push('/question');
     CategoryStore.onResetSelected();
   };
