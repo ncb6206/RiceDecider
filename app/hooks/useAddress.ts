@@ -6,7 +6,7 @@ import { useGeoLocation } from './useGeoLocation';
 const geolocationOptions = {
   enableHighAccuracy: true,
   timeout: 1000 * 10,
-  maximumAge: 1000 * 3600 * 24,
+  maximumAge: 1000 * 3600,
 };
 
 export const useAddress = () => {
@@ -17,6 +17,7 @@ export const useAddress = () => {
     const fetchAddress = async () => {
       if (location.longitude !== 0 && location.latitude !== 0) {
         const result = await getAddress(location);
+        console.log(result);
         setAddress(result);
       }
     };

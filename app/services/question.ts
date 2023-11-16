@@ -1,8 +1,8 @@
-import instance from './config';
+import instance from './config/config';
 
 export const getQuestionList = async (category: string) => {
   try {
-    const response = await instance.get(`/api/questionList`);
+    const response = await instance.get(`/api/questionList/${category}`);
 
     if (response.status === 200) {
       return response;

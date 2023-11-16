@@ -1,22 +1,32 @@
-import axios from 'axios';
-
-export const getImage = async (title: string) => {
+export const getImage = async (title: string, server: boolean) => {
   try {
-    const response = await axios.get(
-      `/v1/search/image?query=${title.replace(
-        /<\/?[^>]+(>|$)/g,
-        '',
-      )}&display=5&start=1&sort=date`,
+    const res = await fetch(
+      server
+        ? `https://openapi.naver.com/v1/search/image?query=${title.replace(
+            /<\/?[^>]+(>|$)/g,
+            '',
+          )}&display=5&start=1&sort=date`
+        : `/v1/search/image?query=${title.replace(
+            /<\/?[^>]+(>|$)/g,
+            '',
+          )}&display=5&start=1&sort=date`,
       {
+        method: 'GET',
         headers: {
-          'X-Naver-Client-Id': process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
-          'X-Naver-Client-Secret': process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET,
+          'X-Naver-Client-Id': process.env
+            .NEXT_PUBLIC_NAVER_CLIENT_ID as string,
+          'X-Naver-Client-Secret': process.env
+            .NEXT_PUBLIC_NAVER_CLIENT_SECRET as string,
         },
       },
     );
-    if (response.status === 200) return response;
 
-    return null;
+    if (!res.ok) throw new Error('Failed to fetch data');
+
+    const data = await res.json();
+    // console.log(data);
+
+    return data;
   } catch (error) {
     return error;
   }

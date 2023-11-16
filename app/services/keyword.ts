@@ -1,4 +1,4 @@
-import instance from './config';
+import instance from './config/config';
 
 export const getKeywordList = async () => {
   try {
