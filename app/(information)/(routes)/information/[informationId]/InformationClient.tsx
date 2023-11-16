@@ -1,20 +1,30 @@
 'use client';
 
-// import { useRouter } from 'next/navigation';
-
 import InformationCard from '@/app/components/information/InformationCard';
 import InformationFooter from '@/app/components/information/InformationFooter';
 import InformationHeader from '@/app/components/information/InformationHeader';
-// import useRecommendStore from '@/app/hooks/useRecommend';
+import useRecommendStore, { recommendProps } from '@/app/hooks/useRecommend';
+import { useEffect } from 'react';
 
-const InformationClient = () => {
-  // const router = useRouter();
-  // const useRecommend = useRecommendStore(state => state);
-
-  // if (!useRecommend.recommend.title) {
-  //   router.push('/category');
-  //   return null;
-  // }
+const InformationClient = ({
+  recommendList,
+  imageUrl,
+}: {
+  recommendList: recommendProps;
+  imageUrl: string;
+}) => {
+  useEffect(() => {
+    // console.log(recommendList, imageUrl);
+    useRecommendStore.setState({
+      recommend: {
+        title: recommendList.title,
+        category: recommendList.category,
+        address: recommendList.address,
+        roadAddress: recommendList.roadAddress,
+        imageSrc: imageUrl,
+      },
+    });
+  }, [imageUrl, recommendList]);
 
   return (
     <main className="flex h-full w-full flex-col items-center">
