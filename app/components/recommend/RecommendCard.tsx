@@ -26,15 +26,15 @@ const RecommendCard = ({
   const favorite = false;
 
   const goInformation = () => {
-    useRecommendStore.setState({
-      recommend: {
-        title,
-        category: keywordList,
-        address,
-        roadAddress,
-        imageSrc,
-      },
-    });
+    // useRecommendStore.setState({
+    //   recommend: {
+    //     title,
+    //     category: keywordList,
+    //     address,
+    //     roadAddress,
+    //     imageSrc,
+    //   },
+    // });
     router.push(`/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}`);
   };
 

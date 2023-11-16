@@ -33,8 +33,6 @@ const RecommendList = () => {
   const useSwipe = useSwipeStore();
   const useRecommend = useRecommendStore(state => state);
 
-  console.log(useRecommend.recommendData, useRecommend.recommendImage);
-
   return (
     <>
       <div className={`w-4/5`}>
