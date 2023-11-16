@@ -1,7 +1,6 @@
 'use client';
 
 import { IconType } from 'react-icons';
-import { VscBlank } from 'react-icons/vsc';
 
 import ProgressBar from '@/app/components/ProgressBar';
 import TextButton from '@/app/components/button/TextButton';
@@ -35,36 +34,44 @@ const Header = ({
 
   return (
     <div
-      className={`relative flex w-full items-center justify-between text-gray-900 ${className}`}
+      className={`relative grid w-full grid-cols-4 items-center text-gray-900 ${className}`}
     >
-      {LeftIcon && (
-        <LeftIcon
-          size={30}
-          className={`${
-            LeftIcon !== VscBlank && 'hover:cursor-pointer'
-          } mr-auto`}
-          onClick={leftOnClick}
-        />
-      )}
-      {label && <p className="mx-auto font-SBAggro text-lg">{label}</p>}
-      {progress && (
-        <div className="absolute left-[8rem]">
-          <ProgressBar />
-        </div>
-      )}
-      {RightIcon && (
-        <RightIcon
-          size={30}
-          className={`${
-            RightIcon !== VscBlank && 'hover:cursor-pointer'
-          } ml-auto`}
-          onClick={rightOnClick}
-        />
-      )}
-      {rightText &&
-        useQuestion.questionData.length !== useQuestion.questionNumber + 1 && (
-          <TextButton label={rightText} onClick={rightOnClick} />
+      <div className="mr-auto flex items-center justify-center">
+        {LeftIcon && (
+          <LeftIcon
+            size={30}
+            className={`hover:cursor-pointer`}
+            onClick={leftOnClick}
+          />
         )}
+      </div>
+      <div className="col-span-2 flex items-center justify-center">
+        {label && (
+          <p
+            className="mx-auto font-SBAggro text-lg "
+            dangerouslySetInnerHTML={{ __html: label }}
+          />
+        )}
+        {progress && (
+          <div className="absolute left-[8rem]">
+            <ProgressBar />
+          </div>
+        )}
+      </div>
+      <div className="ml-auto flex items-center justify-center">
+        {RightIcon && (
+          <RightIcon
+            size={30}
+            className={`hover:cursor-pointer`}
+            onClick={rightOnClick}
+          />
+        )}
+        {rightText &&
+          useQuestion.questionData.length !==
+            useQuestion.questionNumber + 1 && (
+            <TextButton label={rightText} onClick={rightOnClick} />
+          )}
+      </div>
     </div>
   );
 };

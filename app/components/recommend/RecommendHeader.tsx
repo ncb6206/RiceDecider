@@ -3,7 +3,6 @@
 import { BiSolidHome } from 'react-icons/bi';
 import { BsChevronLeft } from 'react-icons/bs';
 import { PiListBold } from 'react-icons/pi';
-import { VscBlank } from 'react-icons/vsc';
 
 import Header from '@/app/components/Header';
 import { useRouter } from 'next/navigation';
@@ -37,7 +36,6 @@ const RecommendHeader = () => {
           leftIcon={BsChevronLeft}
           leftOnClick={onClickSwipe}
           label="밥정너 추천 식당"
-          rightIcon={VscBlank}
           className="bg-rose-500 p-5 text-white"
         />
       )}
