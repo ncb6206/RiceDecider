@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
+    "@tanstack/react-query": "^5.8.3",
+    "@tanstack/react-query-devtools": "^5.8.3",
+    "@tanstack/react-query-next-experimental": "^5.8.4",
     "@types/react-slick": "^0.23.12",
     "axios": "^1.6.0",
     "crypto-js": "^4.2.0",

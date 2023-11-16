@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 
 import Toast from '@/app/components/Toast';
+import ModalsProvider from '@/app/providers/ModalsProvider';
+import QueryProvider from '@/app/providers/QueryProvider';
 
 import './globals.css';
-import ModalsProvider from '@/app/providers/ModalsProvider';
 
 const font = Noto_Sans_KR({ subsets: ['latin'] });
 
@@ -22,14 +23,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={font.className}>
-        <div
-          id="container"
-          className="relative mx-auto h-[100dvh] max-h-[926px] w-full max-w-[428px] select-none overflow-x-hidden overflow-y-hidden bg-white font-Pretendard text-gray-900"
-        >
-          {children}
-          <Toast />
-          <ModalsProvider />
-        </div>
+        <QueryProvider>
+          <div
+            id="container"
+            className="relative mx-auto h-[100dvh] max-h-[926px] w-full max-w-[428px] select-none overflow-x-hidden overflow-y-hidden bg-white font-Pretendard text-gray-900"
+          >
+            {children}
+            <Toast />
+            <ModalsProvider />
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );
