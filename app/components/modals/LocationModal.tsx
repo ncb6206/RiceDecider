@@ -6,9 +6,6 @@ import Modal from './Modal';
 
 import useLocationModal from '@/app/hooks/useLocationModal';
 import { useAddress } from '@/app/hooks/useAddress';
-import { getRecommend } from '@/app/services/recommend';
-import useRecommendStore, { recommendProps } from '@/app/hooks/useRecommend';
-import { getImage } from '@/app/services/image';
 
 const LocationModal = () => {
   const router = useRouter();
@@ -19,30 +16,15 @@ const LocationModal = () => {
   const onSubmit = async () => {
     setIsLoading(true);
 
-    console.log(location, address.data.results[0].region, error);
-    const response: any = await getRecommend('일산 소고기');
+    console.log(
+      location,
+      address.results[0].region.area4.name ||
+        address.results[0].region.area3.name,
+      error,
+    );
 
-    if (response.status === 200) {
-      useRecommendStore.setState({
-        recommendData: response.data.items.slice(0, 4),
-      });
+    router.push('/recommend/일산 소고기');
 
-      Promise.all(
-        response.data.items.slice(0, 4).map(async (item: recommendProps) => {
-          const imageUrl: any = await getImage(item.title);
-          if (imageUrl.status === 200) {
-            return imageUrl.data.items[0].link;
-          }
-          return 'https://source.unsplash.com/random/?cat';
-        }),
-      ).then(imageUrls => {
-        useRecommendStore.setState({
-          recommendImage: imageUrls,
-        });
-      });
-
-      router.push('/recommend');
-    }
     locationModal.onClose();
     setIsLoading(false);
   };
