@@ -35,8 +35,19 @@ export const useGeoLocation = (options = {}) => {
       return;
     }
 
-    geolocation.getCurrentPosition(handleSuccess, handleError, options);
+    geolocation.watchPosition(handleSuccess, handleError, options);
   }, [options]);
 
-  return { location, error };
+  const getLocation = () => {
+    const { geolocation } = navigator;
+
+    if (!geolocation) {
+      setError('Geolocation is not supported.');
+      return;
+    }
+
+    geolocation.watchPosition(handleSuccess, handleError, options);
+  };
+
+  return { location, getLocation, error };
 };

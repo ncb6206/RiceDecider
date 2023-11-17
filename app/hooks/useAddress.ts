@@ -6,11 +6,11 @@ import { useGeoLocation } from './useGeoLocation';
 const geolocationOptions = {
   enableHighAccuracy: true,
   timeout: 1000 * 10,
-  maximumAge: 1000 * 3600,
+  maximumAge: 0,
 };
 
 export const useAddress = () => {
-  const { location, error } = useGeoLocation(geolocationOptions);
+  const { location, getLocation, error } = useGeoLocation(geolocationOptions);
   const [address, setAddress] = useState<any>(null);
 
   useEffect(() => {
@@ -26,5 +26,5 @@ export const useAddress = () => {
     fetchAddress();
   }, [location]);
 
-  return { location, address, error };
+  return { location, address, getLocation, error };
 };
