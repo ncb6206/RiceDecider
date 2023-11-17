@@ -1,6 +1,5 @@
 'use client';
 
-import useRecommendStore from '@/app/hooks/useRecommend';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -26,15 +25,6 @@ const RecommendCard = ({
   const favorite = false;
 
   const goInformation = () => {
-    // useRecommendStore.setState({
-    //   recommend: {
-    //     title,
-    //     category: keywordList,
-    //     address,
-    //     roadAddress,
-    //     imageSrc,
-    //   },
-    // });
     router.push(`/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}`);
   };
 
