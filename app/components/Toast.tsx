@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 const Toast = () => {
   return (
     <Toaster
-      position="top-center"
+      position="bottom-center"
       reverseOrder={false}
       toastOptions={{
         style: {
