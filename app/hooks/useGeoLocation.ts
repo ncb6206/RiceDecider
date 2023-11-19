@@ -35,7 +35,7 @@ export const useGeoLocation = (options = {}) => {
       return;
     }
 
-    geolocation.watchPosition(handleSuccess, handleError, options);
+    geolocation.getCurrentPosition(handleSuccess, handleError, options);
   }, [options]);
 
   const getLocation = () => {
@@ -46,7 +46,7 @@ export const useGeoLocation = (options = {}) => {
       return;
     }
 
-    geolocation.watchPosition(handleSuccess, handleError, options);
+    geolocation.getCurrentPosition(handleSuccess, handleError, options);
   };
 
   return { location, getLocation, error };

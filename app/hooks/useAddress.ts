@@ -6,7 +6,7 @@ import { useGeoLocation } from './useGeoLocation';
 const geolocationOptions = {
   enableHighAccuracy: true,
   timeout: 1000 * 10,
-  maximumAge: 0,
+  maximumAge: 1000 * 3600,
 };
 
 export const useAddress = () => {
