@@ -18,7 +18,7 @@ const QuestionClient = () => {
   }, []);
 
   return (
-    <main className="mx-4 flex h-full flex-col items-center">
+    <main className="mx-4 flex h-full flex-col items-center overflow-auto">
       <QuestionHeader />
       <QuestionTitle />
       <QuestionList />

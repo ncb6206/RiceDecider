@@ -38,7 +38,7 @@ const RecommendClient = ({
 
   return (
     <main
-      className={`flex h-full w-full flex-col items-center ${
+      className={`flex h-full w-full flex-col items-center overflow-auto ${
         useSwipe.isSwipe ? 'bg-rose-500' : 'bg-white'
       }`}
     >

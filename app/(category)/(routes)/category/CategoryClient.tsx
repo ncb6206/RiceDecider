@@ -7,7 +7,7 @@ import CategoryHeader from '@/app/components/category/CategoryHeader';
 
 const CategoryClient = () => {
   return (
-    <main className="mx-4 flex h-full flex-col items-center">
+    <main className="mx-4 flex h-full flex-col items-center overflow-auto">
       <CategoryHeader />
       <CategoryTitle />
       <CategoryList />

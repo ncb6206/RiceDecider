@@ -27,7 +27,7 @@ const InformationClient = ({
   }, [imageUrl, recommendList]);
 
   return (
-    <main className="flex h-full w-full flex-col items-center">
+    <main className="flex h-full w-full flex-col items-center overflow-auto">
       <InformationHeader />
       <InformationCard />
       <div className="flex-1" />

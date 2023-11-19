@@ -5,7 +5,7 @@ import FavoriteList from '@/app/components/favorite/FavoriteList';
 
 const FavoriteClient = () => {
   return (
-    <main className="flex h-full flex-col items-center">
+    <main className="flex h-full flex-col items-center overflow-auto">
       <FavoriteHeader />
       <FavoriteList />
     </main>

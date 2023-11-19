@@ -52,11 +52,7 @@ const Header = ({
             dangerouslySetInnerHTML={{ __html: label }}
           />
         )}
-        {progress && (
-          <div className="absolute left-[8rem]">
-            <ProgressBar />
-          </div>
-        )}
+        {progress && <ProgressBar />}
       </div>
       <div className="ml-auto flex items-center justify-center">
         {RightIcon && (

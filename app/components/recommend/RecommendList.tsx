@@ -55,7 +55,7 @@ const RecommendList = () => {
         </Slider>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 px-2 py-4">
         {!useSwipe.isSwipe &&
           useRecommend.recommendData &&
           useRecommend.recommendData.map((recommend, i) => {

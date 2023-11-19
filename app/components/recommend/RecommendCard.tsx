@@ -32,13 +32,15 @@ const RecommendCard = ({
     <>
       {swipe && (
         <div className="shadow-3xl flex flex-col gap-2 rounded-lg bg-white p-4">
-          <Image
-            src={imageSrc}
-            alt="사진"
-            width={320}
-            height={352}
-            className="mb-2 mt-4 h-[22rem] w-[20rem]"
-          />
+          {imageSrc && (
+            <Image
+              src={imageSrc}
+              alt="사진"
+              width={320}
+              height={352}
+              className="mb-2 mt-4 h-[22rem] w-[20rem]"
+            />
+          )}
           <div className="flex justify-between">
             <p
               onClick={goInformation}

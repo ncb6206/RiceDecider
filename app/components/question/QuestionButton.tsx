@@ -18,7 +18,7 @@ const QuestionButton = ({ index, label }: QuestionButtonProps) => {
   return (
     <button
       onClick={onSelected}
-      className={`relative w-full select-none rounded-[20px] border border-rose-500 p-5 text-left text-lg font-medium text-rose-500 transition hover:bg-rose-200 hover:opacity-80
+      className={`relative w-full select-none rounded-[20px] border border-rose-500 p-5 text-left text-lg font-medium text-rose-500 transition md:hover:bg-rose-200 md:hover:opacity-80
       ${useQuestion.selected[index] ? 'bg-rose-200' : 'bg-white'}
       `}
     >

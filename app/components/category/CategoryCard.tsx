@@ -19,7 +19,7 @@ const CategoryCard = ({ id, icon: Icon, label, select }: CategoryCardProps) => {
 
   return (
     <div
-      className={`m-2 inline-flex flex-col items-center justify-center gap-3 rounded-lg border px-2 py-5 hover:cursor-pointer hover:bg-red-400 ${
+      className={`m-2 inline-flex flex-col items-center justify-center gap-3 rounded-lg border px-2 py-5 md:hover:cursor-pointer md:hover:bg-red-400 ${
         select ? 'bg-red-500' : 'bg-white'
       }`}
       onClick={onClickSelect}

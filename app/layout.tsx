@@ -26,7 +26,7 @@ export default function RootLayout({
         <QueryProvider>
           <div
             id="container"
-            className="relative mx-auto h-[100dvh] max-w-md select-none overflow-x-auto overflow-y-auto bg-white font-Pretendard text-gray-900"
+            className="relative mx-auto h-[100dvh] min-h-screen max-w-md select-none overflow-auto bg-white font-Pretendard text-gray-900"
           >
             {children}
             <Toast />
