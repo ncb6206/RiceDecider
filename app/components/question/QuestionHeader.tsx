@@ -10,6 +10,8 @@ const QuestionHeader = () => {
   const router = useRouter();
   const useQuestion = useQuestionStore();
 
+  const { questionNumber, questionData } = useQuestion;
+
   const back = () => {
     router.back();
     useQuestionStore.setState({ questionNumber: 0, finished: false });
@@ -17,9 +19,9 @@ const QuestionHeader = () => {
   };
 
   const skip = () => {
-    if (useQuestion.questionNumber < useQuestion.questionData.length - 1) {
+    if (questionNumber < questionData.length - 1) {
       useQuestionStore.setState({
-        questionNumber: useQuestion.questionNumber + 1,
+        questionNumber: questionNumber + 1,
       });
 
       useQuestion.onResetSelected();

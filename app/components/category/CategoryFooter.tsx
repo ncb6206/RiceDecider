@@ -9,7 +9,6 @@ import useCategoryStore, {
   CategoryDataType,
 } from '@/app/hooks/useCategoryStore';
 import useQuestionStore from '@/app/hooks/useQuestionStore';
-import { getQuestionList } from '@/app/services/question';
 
 const CategoryFooter = () => {
   const router = useRouter();
@@ -32,10 +31,8 @@ const CategoryFooter = () => {
   }, [CategoryStore.categoryData]);
 
   const onClick = async () => {
-    const response = await getQuestionList(selectedList[0].name);
-    console.log(response);
     QuestionStore.onCreateSelect();
-    router.push('/question');
+    router.push(`/question/${selectedList[0].name}`);
     CategoryStore.onResetSelected();
   };
 
