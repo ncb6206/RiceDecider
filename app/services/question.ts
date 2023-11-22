@@ -1,15 +1,23 @@
-import instance from './config/config';
-
 export const getQuestionList = async (category: string) => {
   try {
-    const response = await instance.get(`/api/questionList/${category}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/questionList/${category}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+        cache: 'no-store',
+      },
+    );
 
-    if (response.status === 200) {
-      return response;
-    }
+    if (!res.ok) throw new Error('Failed to fetch data');
 
-    return null;
-  } catch (error: any) {
+    const data = await res.json();
+    console.log(data);
+
+    return data;
+  } catch (error) {
     return error;
   }
 };
