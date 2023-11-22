@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { FaLocationDot } from 'react-icons/fa6';
 
 interface RecommnedCardProps {
   swipe: boolean;
@@ -52,16 +53,20 @@ const RecommendCard = ({
               {favorite && <AiFillHeart size={26} className="text-rose-500" />}
             </div>
           </div>
-          <div className="flex gap-2 text-sm font-medium text-rose-500">
-            {keywordList && <p># {keywordList}</p>}
+          <div className="flex gap-2 text-sm font-medium text-gray-900">
+            {keywordList && <p>{keywordList}</p>}
           </div>
-
-          <div className="font-bold">{roadAddress}</div>
+          <div className="flex gap-1">
+            <div className="mt-1 flex">
+              <FaLocationDot size={20} className="text-rose-600" />
+            </div>
+            <p className="font-bold text-gray-900">{roadAddress}</p>
+          </div>
         </div>
       )}
 
       {!swipe && (
-        <div className="relative flex flex-col rounded-lg bg-white shadow-md">
+        <div className="relative flex flex-col gap-2 rounded-lg bg-white shadow-md">
           <Image
             src={imageSrc}
             alt="사진"
@@ -79,8 +84,13 @@ const RecommendCard = ({
               onClick={goInformation}
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <p># {keywordList}</p>
-            <p className="font-medium text-rose-600">{roadAddress}</p>
+            <p>{keywordList}</p>
+            <div className="flex gap-1">
+              <div className="mt-1 flex">
+                <FaLocationDot size={20} className="text-rose-600" />
+              </div>
+              <p className="font-medium text-gray-900">{roadAddress}</p>
+            </div>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 'use client';
 
 // import { useState } from 'react';
-import { GrLocation } from 'react-icons/gr';
+import { FaLocationDot } from 'react-icons/fa6';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 interface FavoriteCardProps {
@@ -33,7 +33,7 @@ const FavoriteCard = ({ title, category, distance }: FavoriteCardProps) => {
       <div className="inline-flex items-end justify-start gap-3 self-stretch">
         <div className="flex h-11 items-center justify-start gap-4 py-2.5">
           <div className="flex items-center justify-center gap-2">
-            <GrLocation size={20} />
+            <FaLocationDot size={20} className="text-rose-600" />
             <div className="text-sm font-normal text-gray-900">
               {distance}km
             </div>
