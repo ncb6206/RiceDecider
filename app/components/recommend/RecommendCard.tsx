@@ -1,5 +1,7 @@
 'use client';
 
+import { ILocation } from '@/app/hooks/useGeoLocation';
+import getDis from '@/app/utils/getDis';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
@@ -12,6 +14,9 @@ interface RecommnedCardProps {
   keywordList: string;
   address: string;
   roadAddress: string;
+  latitude: string;
+  longitude: string;
+  location: ILocation;
 }
 
 const RecommendCard = ({
@@ -21,6 +26,9 @@ const RecommendCard = ({
   keywordList,
   address,
   roadAddress,
+  latitude,
+  longitude,
+  location,
 }: RecommnedCardProps) => {
   const router = useRouter();
   const favorite = false;
@@ -60,7 +68,13 @@ const RecommendCard = ({
             <div className="mt-1 flex">
               <FaLocationDot size={20} className="text-rose-600" />
             </div>
-            <p className="font-bold text-gray-900">{roadAddress}</p>
+            <p className="font-bold text-gray-900">
+              {getDis(location, {
+                latitude: Number(latitude),
+                longitude: Number(longitude),
+              })}
+              km
+            </p>
           </div>
         </div>
       )}
@@ -89,7 +103,13 @@ const RecommendCard = ({
               <div className="mt-1 flex">
                 <FaLocationDot size={20} className="text-rose-600" />
               </div>
-              <p className="font-medium text-gray-900">{roadAddress}</p>
+              <p className="font-medium text-gray-900">
+                {getDis(location, {
+                  latitude: Number(latitude),
+                  longitude: Number(longitude),
+                })}
+                km
+              </p>
             </div>
           </div>
         </div>

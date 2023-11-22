@@ -8,6 +8,7 @@ import './slick.css';
 import RecommendCard from '@/app/components/recommend/RecommendCard';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
 import useRecommendStore from '@/app/hooks/useRecommend';
+import { useAddress } from '@/app/hooks/useAddress';
 
 const settings = {
   dots: true,
@@ -31,6 +32,7 @@ const settings = {
 
 const RecommendList = () => {
   const useSwipe = useSwipeStore();
+  const { location } = useAddress();
   const useRecommend = useRecommendStore(state => state);
 
   return (
@@ -49,6 +51,9 @@ const RecommendList = () => {
                   keywordList={recommend.category}
                   address={recommend.address}
                   roadAddress={recommend.roadAddress}
+                  latitude={recommend.mapy || ''}
+                  longitude={recommend.mapx || ''}
+                  location={location}
                 />
               );
             })}
@@ -68,6 +73,9 @@ const RecommendList = () => {
                 keywordList={recommend.category}
                 address={recommend.address}
                 roadAddress={recommend.roadAddress}
+                latitude={recommend.mapy || ''}
+                longitude={recommend.mapx || ''}
+                location={location}
               />
             );
           })}
