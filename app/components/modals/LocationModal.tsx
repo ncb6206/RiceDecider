@@ -14,41 +14,26 @@ const LocationModal = () => {
   const locationModal = useLocationModal();
   const { location, address, getLocation, error } = useAddress();
   const useQuestion = useQuestionStore();
-
-  // const [isChecked, setIsChecked] = useState(false);
-
-  // useEffect(() => {
-  //   if (
-  //     location &&
-  //     (address?.results[0].region.area4.name ||
-  //       address?.results[0].region.area3.name)
-  //   ) {
-  //     setIsChecked(true);
-  //   }
-
-  //   return setIsChecked(false);
-  // }, [address?.results, location]);
+  const { keywordList, categoryName } = useQuestion;
 
   const onSubmit = async () => {
-    console.log(useQuestion.keywordList);
     locationModal.onClose();
+    useQuestion.onResetkeywordList();
 
+    const addressName =
+      address?.results[0].region.area2.name.replace(/\s/g, '') +
+      (address?.results[0].region.area4.name ||
+        address?.results[0].region.area3.name);
+
+    const keyword = keywordList[Math.floor(Math.random() * keywordList.length)];
     getLocation();
 
-    console.log(
-      location,
-      address?.results[0].region.area4.name ||
-        address?.results[0].region.area3.name,
-      error,
-    );
-    // console.log(isChecked);
+    console.log(location, addressName, error, keyword);
 
-    if (
-      location &&
-      (address?.results[0].region.area4.name ||
-        address?.results[0].region.area3.name)
-    ) {
-      return router.push('/recommend/명륜진사갈비');
+    if (location && addressName) {
+      return router.push(
+        `/recommend/${addressName} ${categoryName} ${keyword}`,
+      );
     }
 
     return toast('브라우저 위치권한을 허용해주세요!');
