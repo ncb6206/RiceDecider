@@ -1,5 +1,6 @@
 'use client';
 
+import Empty from '@/app/components/Empty';
 import RecommendFooter from '@/app/components/recommend/RecommendFooter';
 import RecommendHeader from '@/app/components/recommend/RecommendHeader';
 import RecommendList from '@/app/components/recommend/RecommendList';
@@ -9,11 +10,11 @@ import useSwipeStore from '@/app/hooks/useSwipeStore';
 import { getImage } from '@/app/services/image';
 import { useEffect } from 'react';
 
-const RecommendClient = ({
-  recommendList,
-}: {
+interface RecommendClientProps {
   recommendList: recommendProps[];
-}) => {
+}
+
+const RecommendClient = ({ recommendList }: RecommendClientProps) => {
   const useSwipe = useSwipeStore(state => state);
 
   useEffect(() => {
@@ -44,7 +45,8 @@ const RecommendClient = ({
     >
       <RecommendHeader />
       <RecommendTitle />
-      <RecommendList />
+      {recommendList.length === 0 && <Empty />}
+      {recommendList.length !== 0 && <RecommendList />}
       <div className="flex-1" />
       <RecommendFooter />
     </main>

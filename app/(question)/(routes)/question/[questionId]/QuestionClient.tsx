@@ -9,18 +9,26 @@ import useQuestionStore, {
 } from '@/app/hooks/useQuestionStore';
 import { useEffect } from 'react';
 
-const QuestionClient = (questions: { questions: QuestionDataProps[] }) => {
+interface QuestionClientProps {
+  questions: QuestionDataProps[];
+  questionId: string;
+}
+
+const QuestionClient = ({ questions, questionId }: QuestionClientProps) => {
   const useQuestion = useQuestionStore();
 
-  console.log(questions.questions);
+  console.log(questions, decodeURI(questionId));
   useEffect(() => {
-    useQuestionStore.setState({ questionData: questions.questions });
+    useQuestionStore.setState({
+      questionData: questions,
+      categoryName: decodeURI(questionId),
+    });
 
     if (useQuestion.questionNumber !== 0) {
       useQuestion.onResetNumber();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questions.questions]);
+  }, [questions]);
 
   return (
     <main className="mx-4 flex h-full flex-col items-center overflow-auto">

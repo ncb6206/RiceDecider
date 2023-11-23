@@ -11,6 +11,7 @@ export interface QuestionDataProps {
 
 interface QuestionStore {
   questionNumber: number;
+  categoryName: string;
   disabled: boolean;
   finished: boolean;
   selected: Array<number>;
@@ -21,10 +22,12 @@ interface QuestionStore {
   onResetNumber: () => void;
   onCreateSelect: () => void;
   onAddKeyword: (keyword: string) => void;
+  onResetkeywordList: () => void;
 }
 
 const useQuestionStore = create<QuestionStore>(set => ({
   questionNumber: 0,
+  categoryName: '',
   disabled: true,
   finished: false,
   selected: [],
@@ -61,6 +64,7 @@ const useQuestionStore = create<QuestionStore>(set => ({
 
       return { keywordList: newKeywordList };
     }),
+  onResetkeywordList: () => set({ keywordList: [] }),
 }));
 
 export default useQuestionStore;

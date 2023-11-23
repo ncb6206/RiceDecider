@@ -3,13 +3,18 @@
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 const RecommendFooter = () => {
+  const params = useParams();
   const useSwipe = useSwipeStore();
   const router = useRouter();
+  const splitRecom = decodeURI(String(params.recommendId)).split(' ');
 
-  const onClick = () => {};
+  const onClick = () => {
+    console.log(splitRecom);
+    router.push(`/recommend/${splitRecom[0]} ${splitRecom[1]}`);
+  };
 
   const goCategory = () => {
     router.push('/category');
@@ -19,7 +24,13 @@ const RecommendFooter = () => {
     <div className="my-2 mb-10 flex w-full flex-col gap-5 px-6">
       {useSwipe.isSwipe && (
         <>
-          <Button label="다시 골라주세요!" onClick={onClick} outline={true} />
+          {splitRecom[2] && (
+            <Button
+              label={`${splitRecom[1]}만 보고싶어요!`}
+              onClick={onClick}
+              outline={true}
+            />
+          )}
           <TextButton
             label="처음부터 다시 할래요"
             onClick={goCategory}
@@ -29,7 +40,13 @@ const RecommendFooter = () => {
       )}
       {!useSwipe.isSwipe && (
         <>
-          <Button label="다시 골라주세요!" onClick={onClick} outline={false} />
+          {splitRecom[2] && (
+            <Button
+              label={`${splitRecom[1]}만 보고싶어요!`}
+              onClick={onClick}
+              outline={false}
+            />
+          )}
           <TextButton
             label="처음부터 다시 할래요"
             onClick={goCategory}
