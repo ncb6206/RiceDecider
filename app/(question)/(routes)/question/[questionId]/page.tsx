@@ -11,7 +11,9 @@ const QuestionPage = async ({ params }: { params: { questionId: string } }) => {
 
   console.log('question페이지', questions);
 
-  return <QuestionClient questions={questions} />;
+  return (
+    <QuestionClient questions={questions} questionId={params.questionId} />
+  );
 };
 
 export default QuestionPage;
