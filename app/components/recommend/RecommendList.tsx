@@ -40,8 +40,7 @@ const RecommendList = () => {
       <div className={`w-4/5`}>
         <Slider {...settings}>
           {useSwipe.isSwipe &&
-            useRecommend.recommendData &&
-            useRecommend.recommendData.map((recommend, i) => {
+            useRecommend.recommendData?.map((recommend, i) => {
               return (
                 <RecommendCard
                   key={i}
@@ -62,8 +61,7 @@ const RecommendList = () => {
 
       <div className="grid grid-cols-2 gap-2 px-2 py-4">
         {!useSwipe.isSwipe &&
-          useRecommend.recommendData &&
-          useRecommend.recommendData.map((recommend, i) => {
+          useRecommend.recommendData?.map((recommend, i) => {
             return (
               <RecommendCard
                 key={i}
