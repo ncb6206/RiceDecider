@@ -11,10 +11,14 @@ const NaverPage = () => {
   const state = searchParams.get('state');
 
   useEffect(() => {
-    if (code && state) {
-      const response = getToken({ code, state });
-      console.log('페이지', response);
-    }
+    const fetchToken = async () => {
+      if (code && state) {
+        const response = await getToken({ code, state });
+        console.log('페이지', response);
+      }
+    };
+
+    fetchToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
