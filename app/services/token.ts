@@ -25,6 +25,9 @@ const getToken = async ({ code, state }: getTokenProps) => {
 
     console.log(access_token, refresh_token);
 
+    if (access_token) localStorage.setItem('access_token', access_token);
+    if (refresh_token) localStorage.setItem('refresh_token', refresh_token);
+
     return { access_token, refresh_token };
   } catch (error) {
     return error;
