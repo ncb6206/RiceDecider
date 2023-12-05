@@ -8,7 +8,6 @@ const NaverPage = () => {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const state = searchParams.get('state');
-  console.log(code, state);
 
   if (code && state) {
     const response = getToken({ code, state });
