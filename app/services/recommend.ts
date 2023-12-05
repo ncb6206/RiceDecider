@@ -1,7 +1,7 @@
 export const getRecommend = async (label: string) => {
   try {
     const res = await fetch(
-      `/v1/search/local.json?query=${label}&display=5&start=1&sort=random`,
+      `https://openapi.naver.com/v1/search/local.json?query=${label}&display=5&start=1&sort=random`,
       {
         method: 'GET',
         headers: {
