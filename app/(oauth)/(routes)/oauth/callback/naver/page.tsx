@@ -4,11 +4,6 @@ import Loader from '@/app/components/Loader';
 import getToken from '@/app/services/token';
 import { useSearchParams } from 'next/navigation';
 
-interface responseProps {
-  access_token: string;
-  refresh_token: string;
-}
-
 const NaverPage = () => {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
@@ -16,7 +11,7 @@ const NaverPage = () => {
   console.log(code, state);
 
   if (code && state) {
-    const response: responseProps = getToken({ code, state });
+    const response = getToken({ code, state });
     console.log('페이지', response);
   }
 
