@@ -2,7 +2,7 @@ export const getImage = async (title: string, server: boolean) => {
   try {
     const res = await fetch(
       server
-        ? `https://openapi.naver.com/v1/search/image?query=${title.replace(
+        ? `/v1/search/image?query=${title.replace(
             /<\/?[^>]+(>|$)/g,
             '',
           )}&display=5&start=1&sort=date`
