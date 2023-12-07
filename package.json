@@ -16,6 +16,7 @@
     "@tanstack/react-query-next-experimental": "^5.8.4",
     "@types/react-slick": "^0.23.12",
     "axios": "^1.6.0",
+    "cookies-next": "^4.1.0",
     "crypto-js": "^4.2.0",
     "geolib": "^3.3.4",
     "next": "^14.0.1",
