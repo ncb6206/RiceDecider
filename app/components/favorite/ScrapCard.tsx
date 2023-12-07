@@ -4,13 +4,13 @@
 import { FaLocationDot } from 'react-icons/fa6';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
-interface FavoriteCardProps {
+interface ScrapCardProps {
   title: string;
   category: string;
-  distance: string;
+  address: string;
 }
 
-const FavoriteCard = ({ title, category, distance }: FavoriteCardProps) => {
+const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
   // const [favorite, setFavorite] = useState(false);
   const favorite = false;
 
@@ -34,9 +34,7 @@ const FavoriteCard = ({ title, category, distance }: FavoriteCardProps) => {
         <div className="flex h-11 items-center justify-start gap-4 py-2.5">
           <div className="flex items-center justify-center gap-2">
             <FaLocationDot size={20} className="text-rose-600" />
-            <div className="text-sm font-normal text-gray-900">
-              {distance}km
-            </div>
+            <div className="text-sm font-normal text-gray-900">{address}</div>
           </div>
         </div>
       </div>
@@ -44,4 +42,4 @@ const FavoriteCard = ({ title, category, distance }: FavoriteCardProps) => {
   );
 };
 
-export default FavoriteCard;
+export default ScrapCard;

@@ -2,10 +2,11 @@
 
 import Loader from '@/app/components/Loader';
 import getToken from '@/app/services/token';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 const NaverPage = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
   const state = searchParams.get('state');
@@ -14,8 +15,14 @@ const NaverPage = () => {
     const fetchToken = async () => {
       if (code && state) {
         const response = await getToken({ code, state });
-        console.log('페이지', response);
+        // console.log('페이지', response);
+
+        if (response.access_token && response.refresh_token) {
+          return router.push('/category');
+        }
       }
+
+      return router.push('/');
     };
 
     fetchToken();

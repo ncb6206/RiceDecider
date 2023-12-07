@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 
 import Header from '@/app/components/Header';
 
-const FavoriteHeader = () => {
+const ScrapHeader = () => {
   const router = useRouter();
+
   const goCategory = () => {
     router.push('/category');
   };
@@ -21,4 +22,4 @@ const FavoriteHeader = () => {
   );
 };
 
-export default FavoriteHeader;
+export default ScrapHeader;

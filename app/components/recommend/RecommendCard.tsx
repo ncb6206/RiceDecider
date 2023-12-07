@@ -1,11 +1,15 @@
 'use client';
 
-import { ILocation } from '@/app/hooks/useGeoLocation';
-import getDis from '@/app/utils/getDis';
+import { getCookie, hasCookie } from 'cookies-next';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
+
+import { ILocation } from '@/app/hooks/useGeoLocation';
+import { postScrap } from '@/app/services/scrap';
+import getDis from '@/app/utils/getDis';
+import toast from 'react-hot-toast';
 
 interface RecommnedCardProps {
   swipe: boolean;
@@ -31,10 +35,36 @@ const RecommendCard = ({
   location,
 }: RecommnedCardProps) => {
   const router = useRouter();
+  const token = getCookie('access_token');
+  const param = usePathname();
   const favorite = false;
 
   const goInformation = () => {
     router.push(`/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}`);
+  };
+
+  const onScrap = async () => {
+    if (hasCookie('access_token')) {
+      const response = await postScrap({
+        scrap: {
+          category: decodeURI(param.split('%20')[1]),
+          realCategory: decodeURI(param.split('%20')[1]),
+          title,
+          ttwwfew: title,
+          detailURL: `https://map.naver.com/p/search/${title.replace(
+            /<\/?[^>]+(>|$)/g,
+            '',
+          )}`,
+          address,
+          radAddress: roadAddress,
+        },
+        access_token: String(token),
+      });
+
+      if (response.length !== 0) return toast('스크랩 되었습니다!');
+
+      return toast('스크랩 실패...');
+    }
   };
 
   return (
@@ -50,15 +80,26 @@ const RecommendCard = ({
               className="mb-2 mt-4 h-[22rem] w-[20rem]"
             />
           )}
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-2">
             <p
               onClick={goInformation}
               className="cursor-pointer font-SBAggro text-3xl text-gray-900"
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <div className="cursor-pointer">
-              {!favorite && <AiOutlineHeart size={26} />}
-              {favorite && <AiFillHeart size={26} className="text-rose-500" />}
+            <div>
+              {!favorite && (
+                <AiOutlineHeart
+                  size={26}
+                  className="cursor-pointer"
+                  onClick={onScrap}
+                />
+              )}
+              {favorite && (
+                <AiFillHeart
+                  size={26}
+                  className="cursor-pointer text-rose-500"
+                />
+              )}
             </div>
           </div>
           <div className="flex gap-2 text-sm font-medium text-gray-900">
