@@ -1,5 +1,5 @@
 import { getDistance } from 'geolib';
-import { ILocation } from '../hooks/useGeoLocation';
+import { ILocation } from '@/app/hooks/useGeoLocation';
 
 function formatNumber(num: number) {
   const str = num.toString();
