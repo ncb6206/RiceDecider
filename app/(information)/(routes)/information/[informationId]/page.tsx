@@ -11,8 +11,9 @@ const InformationPage = async ({
 }: {
   params: { informationId: string };
 }) => {
-  const recommends = await getRecommend(decodeURI(params.informationId));
-  const images = await getImage(decodeURI(params.informationId), true);
+  const title = decodeURI(params.informationId).split('%26')[0];
+  const recommends = await getRecommend(title);
+  const images = await getImage(title, true);
 
   if (recommends.items.length === 0 || images.items.length === 0) {
     return <ErrorPage />;
@@ -22,9 +23,7 @@ const InformationPage = async ({
     <InformationClient
       recommendList={
         recommends.items.filter(
-          (item: recommendProps) =>
-            clearWord(item.title) ===
-            clearWord(decodeURI(params.informationId)),
+          (item: recommendProps) => clearWord(item.title) === clearWord(title),
         )[0]
       }
       imageUrl={images.items[0].link}

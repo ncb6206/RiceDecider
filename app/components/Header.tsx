@@ -36,11 +36,11 @@ const Header = ({
     <div
       className={`relative grid w-full grid-cols-4 items-center text-gray-900 ${className}`}
     >
-      <div className="mr-auto flex items-center justify-center">
+      <div className="ml-1 mr-auto flex items-center justify-center">
         {LeftIcon && (
           <LeftIcon
             size={30}
-            className={`hover:cursor-pointer`}
+            className={`transition-all hover:scale-110 hover:cursor-pointer`}
             onClick={leftOnClick}
           />
         )}
@@ -54,11 +54,11 @@ const Header = ({
         )}
         {progress && <ProgressBar />}
       </div>
-      <div className="ml-auto flex items-center justify-center">
+      <div className="ml-auto mr-1 flex items-center justify-center">
         {RightIcon && (
           <RightIcon
             size={30}
-            className={`hover:cursor-pointer`}
+            className={`transition-all hover:scale-110 hover:cursor-pointer`}
             onClick={rightOnClick}
           />
         )}

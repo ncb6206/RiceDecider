@@ -9,6 +9,7 @@ import RecommendCard from '@/app/components/recommend/RecommendCard';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
 import useRecommendStore from '@/app/hooks/useRecommend';
 import { useAddress } from '@/app/hooks/useAddress';
+import { isToken } from '@/app/utils/isToken';
 
 const settings = {
   dots: true,
@@ -33,6 +34,7 @@ const settings = {
 const RecommendList = () => {
   const useSwipe = useSwipeStore();
   const { location } = useAddress();
+  const isLogin = isToken();
   const useRecommend = useRecommendStore(state => state);
 
   return (
@@ -53,6 +55,7 @@ const RecommendList = () => {
                   latitude={recommend.mapy || ''}
                   longitude={recommend.mapx || ''}
                   location={location}
+                  isLogin={isLogin}
                 />
               );
             })}
@@ -74,6 +77,7 @@ const RecommendList = () => {
                 latitude={recommend.mapy || ''}
                 longitude={recommend.mapx || ''}
                 location={location}
+                isLogin={isLogin}
               />
             );
           })}

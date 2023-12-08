@@ -12,7 +12,7 @@ const CategoryHeader = () => {
   const hasToken = isToken();
   const router = useRouter();
 
-  const useGoFavorite = () => {
+  const useGoScrap = () => {
     if (hasToken) return router.push('/scrap');
     useLogin.onOpen();
   };
@@ -20,7 +20,7 @@ const CategoryHeader = () => {
   return (
     <Header
       rightIcon={AiOutlineHeart}
-      rightOnClick={useGoFavorite}
+      rightOnClick={useGoScrap}
       className="py-5"
     />
   );

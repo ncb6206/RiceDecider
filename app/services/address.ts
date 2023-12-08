@@ -14,6 +14,7 @@ export const getAddress = async ({ longitude, latitude }: ILocation) => {
           'X-NCP-APIGW-API-KEY': process.env
             .NEXT_PUBLIC_NAVER_NCLOUD_SECRET_KEY as string,
         },
+        next: { revalidate: 600 },
       },
     );
 

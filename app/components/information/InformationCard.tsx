@@ -38,15 +38,6 @@ const InformationCard = () => {
           <p className="text-gray-600">도로명주소</p>
           <p>{useRecommend.recommend.roadAddress}</p>
         </div>
-        {/* <p className="text-base font-medium text-gray-900">영업 정보</p>
-        <div className="flex gap-2">
-          <p className="text-gray-600">시간</p>
-          <p>{time}</p>
-        </div>
-        <div className="flex gap-2">
-          <p className="text-gray-600">휴무</p>
-          <p>{hoomo} </p>
-        </div> */}
       </div>
     </div>
   );
