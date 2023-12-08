@@ -11,6 +11,11 @@ interface postScrapProps {
   access_token: string;
 }
 
+interface delteScrapProps {
+  address: string;
+  access_token: string;
+}
+
 export const getScrapList = async (access_token: string) => {
   try {
     const res = await fetch(
@@ -20,6 +25,7 @@ export const getScrapList = async (access_token: string) => {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
+        cache: 'no-store',
       },
     );
 
@@ -57,6 +63,32 @@ export const postScrap = async ({ scrap, access_token }: postScrapProps) => {
 
     const data = await res.json();
     // console.log(data);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteScrap = async ({
+  address,
+  access_token,
+}: delteScrapProps) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/scrap/${address}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      },
+    );
+
+    if (!res.ok) throw new Error('Failed to fetch data');
+
+    const data = await res.json();
+    console.log(data);
 
     return data;
   } catch (error) {
