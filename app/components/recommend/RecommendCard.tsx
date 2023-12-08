@@ -1,15 +1,16 @@
 'use client';
 
-import { getCookie, hasCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
+import toast from 'react-hot-toast';
 
 import { ILocation } from '@/app/hooks/useGeoLocation';
 import { postScrap } from '@/app/services/scrap';
 import getDis from '@/app/utils/getDis';
-import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 interface RecommnedCardProps {
   swipe: boolean;
@@ -21,6 +22,7 @@ interface RecommnedCardProps {
   latitude: string;
   longitude: string;
   location: ILocation;
+  isLogin: boolean;
 }
 
 const RecommendCard = ({
@@ -33,38 +35,44 @@ const RecommendCard = ({
   latitude,
   longitude,
   location,
+  isLogin,
 }: RecommnedCardProps) => {
+  const [isScrap, setIsScrap] = useState(false);
   const router = useRouter();
   const token = getCookie('access_token');
   const param = usePathname();
-  const favorite = false;
+  const categoryName = decodeURI(param.split('%20')[1]);
 
   const goInformation = () => {
-    router.push(`/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}`);
+    router.push(
+      `/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}&${categoryName}`,
+    );
   };
 
   const onScrap = async () => {
-    if (hasCookie('access_token')) {
-      const response = await postScrap({
-        scrap: {
-          category: decodeURI(param.split('%20')[1]),
-          realCategory: decodeURI(param.split('%20')[1]),
-          title,
-          ttwwfew: title,
-          detailURL: `https://map.naver.com/p/search/${title.replace(
-            /<\/?[^>]+(>|$)/g,
-            '',
-          )}`,
-          address,
-          radAddress: roadAddress,
-        },
-        access_token: String(token),
-      });
+    const response = await postScrap({
+      scrap: {
+        category: categoryName,
+        realCategory: categoryName,
+        title,
+        ttwwfew: title,
+        detailURL: `https://map.naver.com/p/search/${title.replace(
+          /<\/?[^>]+(>|$)/g,
+          '',
+        )}`,
+        address,
+        radAddress: roadAddress,
+      },
+      access_token: String(token),
+    });
 
-      if (response.length !== 0) return toast('스크랩 되었습니다!');
-
-      return toast('스크랩 실패...');
+    if (response.length !== 0) {
+      toast('스크랩 되었습니다!');
+      setIsScrap(true);
+      return;
     }
+
+    return toast('스크랩 실패...');
   };
 
   return (
@@ -86,21 +94,23 @@ const RecommendCard = ({
               className="cursor-pointer font-SBAggro text-3xl text-gray-900"
               dangerouslySetInnerHTML={{ __html: title }}
             />
-            <div>
-              {!favorite && (
-                <AiOutlineHeart
-                  size={26}
-                  className="cursor-pointer"
-                  onClick={onScrap}
-                />
-              )}
-              {favorite && (
-                <AiFillHeart
-                  size={26}
-                  className="cursor-pointer text-rose-500"
-                />
-              )}
-            </div>
+            {isLogin && (
+              <div>
+                {!isScrap && (
+                  <AiOutlineHeart
+                    size={26}
+                    className="cursor-pointer"
+                    onClick={onScrap}
+                  />
+                )}
+                {isScrap && (
+                  <AiFillHeart
+                    size={26}
+                    className="cursor-pointer text-rose-500"
+                  />
+                )}
+              </div>
+            )}
           </div>
           <div className="flex gap-2 text-sm font-medium text-gray-900">
             {keywordList && <p>{keywordList}</p>}
@@ -129,10 +139,14 @@ const RecommendCard = ({
             height={352}
             className="h-[10rem] w-full rounded-t-lg"
           />
-          <div className="absolute right-3 top-3 flex cursor-pointer">
-            {!favorite && <AiOutlineHeart size={26} fill="white" />}
-            {favorite && <AiFillHeart size={26} className="text-rose-500" />}
-          </div>
+          {isLogin && (
+            <div className="absolute right-3 top-3 flex cursor-pointer">
+              {!isScrap && (
+                <AiOutlineHeart size={26} fill="white" onClick={onScrap} />
+              )}
+              {isScrap && <AiFillHeart size={26} className="text-rose-500" />}
+            </div>
+          )}
           <div className="flex flex-col px-4 py-2">
             <p
               className="cursor-pointer font-SBAggro text-lg text-gray-900"
