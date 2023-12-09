@@ -1,0 +1,47 @@
+.recommend_dots li {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0;
+}
+
+.recommend_dots li button {
+  border: none;
+  background: #ffffff;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  padding: 0;
+}
+
+.recommend_dots li.slick-active button {
+  background-color: #d6ee23;
+}
+
+.information_dots li {
+  list-style: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 6px;
+  padding: 0;
+}
+
+.information_dots li button {
+  border: none;
+  background: #dbdbdb;
+  color: transparent;
+  cursor: pointer;
+  display: block;
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  padding: 0;
+}
+
+.information_dots li.slick-active button {
+  background-color: #e14e4b;
+}

@@ -8,7 +8,7 @@ const InformationFooter = () => {
 
   const onClick = () => {
     window.open(
-      `https://map.naver.com/p/search/${useRecommend.recommend.title.replace(
+      `https://map.naver.com/p/search/${useRecommend.information.title.replace(
         /<\/?[^>]+(>|$)/g,
         '',
       )}`,

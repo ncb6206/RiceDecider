@@ -6,6 +6,8 @@ import Toast from '@/app/components/Toast';
 import ModalsProvider from '@/app/providers/ModalsProvider';
 import QueryProvider from '@/app/providers/QueryProvider';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './globals.css';
 
 const font = Noto_Sans_KR({ subsets: ['latin'] });

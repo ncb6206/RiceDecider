@@ -1,5 +1,13 @@
 import { create } from 'zustand';
 
+export interface imageZipProps {
+  title: string;
+  link: string;
+  thumbnail: string;
+  sizeheight: string;
+  sizewidth: string;
+}
+
 export interface recommendProps {
   title: string;
   link?: string;
@@ -13,21 +21,29 @@ export interface recommendProps {
   imageSrc?: string;
 }
 
+interface informationProps {
+  title: string;
+  category: string;
+  address: string;
+  roadAddress: string;
+  imageZip: Array<imageZipProps>;
+}
+
 interface RecommendStore {
   recommendData: Array<recommendProps>;
   recommendImage: Array<string>;
-  recommend: recommendProps;
+  information: informationProps;
 }
 
 const useRecommendStore = create<RecommendStore>(set => ({
   recommendData: [],
   recommendImage: [],
-  recommend: {
+  information: {
     title: '',
     category: '',
     address: '',
     roadAddress: '',
-    imageSrc: '',
+    imageZip: [],
   },
 }));
 

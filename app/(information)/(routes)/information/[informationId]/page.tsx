@@ -1,32 +1,33 @@
 import InformationClient from './InformationClient';
 
-import { getRecommend } from '@/app/services/recommend';
-import { getImage } from '@/app/services/image';
+import { getImages } from '@/app/services/image';
 import ErrorPage from '@/app/error';
 import { recommendProps } from '@/app/hooks/useRecommend';
 import clearWord from '@/app/utils/clearWord';
+import { getInformation } from '@/app/services/information';
 
 const InformationPage = async ({
   params,
 }: {
   params: { informationId: string };
 }) => {
-  const title = decodeURI(params.informationId).split('%26')[0];
-  const recommends = await getRecommend(title);
-  const images = await getImage(title, true);
+  const [location, title] = decodeURI(params.informationId).split('%26');
 
-  if (recommends.items.length === 0 || images.items.length === 0) {
+  const infomation = await getInformation(`${location} ${title}`);
+  const images = await getImages(`${title}`, true);
+
+  if (infomation.items.length === 0 || images.items.length === 0) {
     return <ErrorPage />;
   }
 
   return (
     <InformationClient
-      recommendList={
-        recommends.items.filter(
+      infomationList={
+        infomation.items.filter(
           (item: recommendProps) => clearWord(item.title) === clearWord(title),
         )[0]
       }
-      imageUrl={images.items[0].link}
+      imageZip={images.items}
     />
   );
 };

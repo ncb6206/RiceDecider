@@ -5,9 +5,12 @@ import RecommendFooter from '@/app/components/recommend/RecommendFooter';
 import RecommendHeader from '@/app/components/recommend/RecommendHeader';
 import RecommendList from '@/app/components/recommend/RecommendList';
 import RecommendTitle from '@/app/components/recommend/RecommendTitle';
-import useRecommendStore, { recommendProps } from '@/app/hooks/useRecommend';
+import useRecommendStore, {
+  imageZipProps,
+  recommendProps,
+} from '@/app/hooks/useRecommend';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
-import { getImage } from '@/app/services/image';
+import { getRecommendImage } from '@/app/services/image';
 import { useEffect } from 'react';
 
 interface RecommendClientProps {
@@ -24,11 +27,14 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
 
     Promise.all(
       recommendList.slice(0, 4).map(async (item: recommendProps) => {
-        const imageUrl: any = await getImage(item.title, false);
-        if (imageUrl.items.length !== 0) {
-          return imageUrl.items[0].link;
+        const imageUrl: imageZipProps[] = await getRecommendImage(
+          item.title,
+          false,
+        );
+        if (imageUrl?.length !== 0) {
+          return imageUrl[0]?.link;
         }
-        return 'https://source.unsplash.com/random/?cat';
+        return 'https://source.unsplash.com/random';
       }),
     ).then(imageUrls => {
       useRecommendStore.setState({

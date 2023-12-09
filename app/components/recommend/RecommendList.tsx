@@ -1,35 +1,14 @@
 'use client';
 
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './slick.css';
 
+import '@/app/slick.css';
 import RecommendCard from '@/app/components/recommend/RecommendCard';
+import SlickSetting from '@/app/components/slickSetting';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
 import useRecommendStore from '@/app/hooks/useRecommend';
 import { useAddress } from '@/app/hooks/useAddress';
 import { isToken } from '@/app/utils/isToken';
-
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  appendDots: (dots: any) => (
-    <div
-      style={{
-        width: '100%',
-        marginTop: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <ul> {dots} </ul>
-    </div>
-  ),
-  dotsClass: 'dots_custom',
-};
 
 const RecommendList = () => {
   const useSwipe = useSwipeStore();
@@ -40,7 +19,7 @@ const RecommendList = () => {
   return (
     <>
       <div className={`w-4/5`}>
-        <Slider {...settings}>
+        <Slider {...SlickSetting('recommend_dots')}>
           {useSwipe.isSwipe &&
             useRecommend.recommendData?.map((recommend, i) => {
               return (

@@ -21,7 +21,7 @@ const InformationHeader = () => {
   const [title, categoryName] = decodeURI(String(params.informationId)).split(
     '%26',
   );
-  const { address, roadAddress } = useRecommend.recommend;
+  const { address, roadAddress } = useRecommend.information;
 
   const goBack = () => {
     router.back();
