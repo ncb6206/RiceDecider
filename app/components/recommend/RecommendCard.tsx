@@ -2,7 +2,7 @@
 
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
@@ -40,13 +40,15 @@ const RecommendCard = ({
   const [isScrap, setIsScrap] = useState(false);
   const router = useRouter();
   const token = getCookie('access_token');
-  const param = usePathname();
-  const categoryName = decodeURI(param.split('%20')[1]);
+  const param = useParams();
+
+  const [addressName, categoryName] = decodeURI(
+    String(param.recommendId),
+  ).split(' ');
+  const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
 
   const goInformation = () => {
-    router.push(
-      `/information/${title.replace(/<\/?[^>]+(>|$)/g, '')}&${categoryName}`,
-    );
+    router.push(`/information/${addressName}&${cleanTitle}&${categoryName}`);
   };
 
   const onScrap = async () => {
@@ -56,10 +58,7 @@ const RecommendCard = ({
         realCategory: categoryName,
         title,
         ttwwfew: title,
-        detailURL: `https://map.naver.com/p/search/${title.replace(
-          /<\/?[^>]+(>|$)/g,
-          '',
-        )}`,
+        detailURL: `https://map.naver.com/p/search/${cleanTitle}`,
         address,
         radAddress: roadAddress,
       },
