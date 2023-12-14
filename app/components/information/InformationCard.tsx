@@ -16,11 +16,11 @@ const InformationCard = () => {
   return (
     <div className="w-full">
       <Slider {...SlickSetting('information_dots')}>
-        {imageZip.length !== 0 &&
+        {imageZip?.length !== 0 &&
           imageZip?.map((imageUrl, i) => (
             <Image
               key={i}
-              src={imageUrl.link}
+              src={imageUrl.image_url}
               alt="매장 사진"
               width={400}
               height={400}

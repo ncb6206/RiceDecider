@@ -1,19 +1,15 @@
-export const getRecommendImage = async (title: string, server: boolean) => {
+export const getRecommendImage = async (title: string) => {
   const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
   console.log(cleanTitle);
 
   try {
     const res = await fetch(
-      server
-        ? `https://openapi.naver.com/v1/search/image?query=${cleanTitle}&display=5&start=1&sort=sim`
-        : `/v1/search/image?query=${cleanTitle}&display=5&start=1&sort=date`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle}&page=1&size=1`,
       {
         method: 'GET',
         headers: {
-          'X-Naver-Client-Id': process.env
-            .NEXT_PUBLIC_NAVER_CLIENT_ID as string,
-          'X-Naver-Client-Secret': process.env
-            .NEXT_PUBLIC_NAVER_CLIENT_SECRET as string,
+          Authorization:
+            `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ID}` as string,
         },
       },
     );
@@ -21,30 +17,26 @@ export const getRecommendImage = async (title: string, server: boolean) => {
     if (!res.ok) throw new Error('Failed to fetch data');
 
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
 
-    return data.items;
+    return data.documents;
   } catch (error) {
     return error;
   }
 };
 
-export const getImages = async (title: string, server: boolean) => {
+export const getImages = async (title: string) => {
   const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-  console.log(cleanTitle);
+  console.log('getImages', cleanTitle);
 
   try {
     const res = await fetch(
-      server
-        ? `https://openapi.naver.com/v1/search/image?query=${cleanTitle}&display=5&start=1&sort=sim`
-        : `/v1/search/image?query=${cleanTitle}&display=5&start=1&sort=date`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle}&page=1&size=5`,
       {
         method: 'GET',
         headers: {
-          'X-Naver-Client-Id': process.env
-            .NEXT_PUBLIC_NAVER_CLIENT_ID as string,
-          'X-Naver-Client-Secret': process.env
-            .NEXT_PUBLIC_NAVER_CLIENT_SECRET as string,
+          Authorization:
+            `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ID}` as string,
         },
       },
     );
@@ -52,7 +44,7 @@ export const getImages = async (title: string, server: boolean) => {
     if (!res.ok) throw new Error('Failed to fetch data');
 
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
 
     return data;
   } catch (error) {

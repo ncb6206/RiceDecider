@@ -64,6 +64,7 @@
   },
   "proxy": [
     "https://openapi.naver.com",
-    "https://naveropenapi.apigw.ntruss.com"
+    "https://naveropenapi.apigw.ntruss.com",
+    "https://dapi.kakao.com"
   ]
 }

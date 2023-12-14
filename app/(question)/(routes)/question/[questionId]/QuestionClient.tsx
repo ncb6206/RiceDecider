@@ -31,7 +31,7 @@ const QuestionClient = ({ questions, questionId }: QuestionClientProps) => {
   }, [questions]);
 
   return (
-    <main className="mx-4 flex h-full flex-col items-center overflow-auto">
+    <main className="mx-4 flex h-full flex-col items-center overflow-y-auto overflow-x-hidden">
       <QuestionHeader />
       <QuestionTitle />
       <QuestionList />

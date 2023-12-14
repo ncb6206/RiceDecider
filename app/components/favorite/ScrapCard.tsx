@@ -1,12 +1,14 @@
 'use client';
 
-// import { useState } from 'react';
+import { useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
-import { AiFillHeart } from 'react-icons/ai';
-import { deleteScrap } from '@/app/services/scrap';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { getCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
-import { useState } from 'react';
+
+import { deleteScrap, postScrap } from '@/app/services/scrap';
+import { useRouter } from 'next/navigation';
+import deleteToken from '@/app/utils/deleteToken';
 
 interface ScrapCardProps {
   title: string;
@@ -15,8 +17,34 @@ interface ScrapCardProps {
 }
 
 const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
-  const [isDeleted, setIsDeleted] = useState(false);
+  const router = useRouter();
+  const [isScrap, setIsScrap] = useState(true);
   const token = getCookie('access_token');
+
+  const onScrap = async () => {
+    const response = await postScrap({
+      scrap: {
+        category,
+        realCategory: category,
+        title,
+        ttwwfew: title,
+        detailURL: `https://map.naver.com/p/search/${title}`,
+        address,
+        radAddress: address,
+      },
+      access_token: String(token),
+    });
+
+    if (response.length !== 0) {
+      toast('스크랩 되었습니다!');
+      setIsScrap(true);
+      return;
+    }
+
+    deleteToken();
+    router.refresh();
+    return toast('스크랩 실패...');
+  };
 
   const onDeleteScrap = async () => {
     const response = await deleteScrap({
@@ -26,14 +54,14 @@ const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
 
     if (response.length !== 0) {
       toast('스크랩이 삭제되었습니다!');
-      setIsDeleted(true);
+      setIsScrap(false);
       return;
     }
 
+    deleteToken();
+    router.refresh();
     return toast('스크랩 삭제실패...');
   };
-
-  if (isDeleted) return null;
 
   return (
     <div className="flex flex-col gap-1 border-b border-gray-500 bg-white px-5 pb-2 pt-5">
@@ -47,11 +75,20 @@ const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
           </div>
         </div>
         <div className="hover:scale-110 hover:cursor-pointer">
-          <AiFillHeart
-            size={26}
-            className="text-rose-500"
-            onClick={onDeleteScrap}
-          />
+          {!isScrap && (
+            <AiOutlineHeart
+              size={26}
+              className="cursor-pointer"
+              onClick={onScrap}
+            />
+          )}
+          {isScrap && (
+            <AiFillHeart
+              size={26}
+              className="text-rose-500"
+              onClick={onDeleteScrap}
+            />
+          )}
         </div>
       </div>
       <div className="inline-flex items-end justify-start gap-3 self-stretch">

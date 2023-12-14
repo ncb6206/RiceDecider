@@ -31,9 +31,12 @@ const LocationModal = () => {
     console.log(location, addressName, error, keyword);
 
     if (location && addressName) {
-      return router.push(
-        `/recommend/${addressName} ${categoryName} ${keyword}`,
-      );
+      if (keyword !== undefined)
+        return router.push(
+          `/recommend/${addressName} ${categoryName} ${keyword}`,
+        );
+
+      return router.push(`/recommend/${addressName} ${categoryName}`);
     }
 
     return toast('브라우저 위치권한을 허용해주세요!');
