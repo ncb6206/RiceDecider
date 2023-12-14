@@ -14,9 +14,9 @@ const InformationPage = async ({
   const [location, title] = decodeURI(params.informationId).split('%26');
 
   const infomation = await getInformation(`${location} ${title}`);
-  const images = await getImages(`${title}`, true);
+  const images = await getImages(`${title}`);
 
-  if (infomation.items.length === 0 || images.items.length === 0) {
+  if (infomation.items.length === 0) {
     return <ErrorPage />;
   }
 
@@ -27,7 +27,7 @@ const InformationPage = async ({
           (item: recommendProps) => clearWord(item.title) === clearWord(title),
         )[0]
       }
-      imageZip={images.items}
+      imageZip={images.documents}
     />
   );
 };
