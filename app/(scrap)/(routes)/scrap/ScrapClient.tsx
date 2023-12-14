@@ -2,24 +2,24 @@
 
 import ScrapHeader from '@/app/components/favorite/ScrapHeader';
 import ScrapList from '@/app/components/favorite/ScrapList';
+import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
+import { useEffect } from 'react';
 
-export interface scrapListProps {
-  memberEmail: string;
-  detailURL: string;
-  restaurantTitle: string;
-  category: string;
-  restaurantAddress: string;
-}
-
-export interface ScrapClientProps {
+interface ScrapClientProps {
   scrapList: scrapListProps[];
 }
 
 const ScrapClient = ({ scrapList }: ScrapClientProps) => {
+  useEffect(() => {
+    useScrapStore.setState({
+      scrapData: scrapList,
+    });
+  }, [scrapList]);
+
   return (
-    <main className="flex h-full flex-col items-center overflow-auto">
+    <main className="flex h-full flex-col items-center overflow-y-auto overflow-x-hidden">
       <ScrapHeader />
-      <ScrapList scrapList={scrapList} />
+      <ScrapList />
     </main>
   );
 };
