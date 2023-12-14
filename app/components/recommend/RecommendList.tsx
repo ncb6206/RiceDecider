@@ -3,27 +3,27 @@
 import Slider from 'react-slick';
 
 import '@/app/slick.css';
-import RecommendCard from '@/app/components/recommend/RecommendCard';
 import SlickSetting from '@/app/components/slickSetting';
 import useSwipeStore from '@/app/hooks/useSwipeStore';
 import useRecommendStore from '@/app/hooks/useRecommend';
 import { useAddress } from '@/app/hooks/useAddress';
-import { isToken } from '@/app/utils/isToken';
+import useTokenStore from '@/app/hooks/useToken';
+import RecommendCardSwipe from './RecommendCardSwipe';
 
 const RecommendList = () => {
   const useSwipe = useSwipeStore();
-  const { location } = useAddress();
-  const isLogin = isToken();
   const useRecommend = useRecommendStore(state => state);
+  const { isLogin } = useTokenStore();
+  const { location } = useAddress();
 
   return (
     <>
       <div className={`w-4/5`}>
-        <Slider {...SlickSetting('recommend_dots')}>
-          {useSwipe.isSwipe &&
-            useRecommend.recommendData?.map((recommend, i) => {
+        {useSwipe.isSwipe && (
+          <Slider {...SlickSetting('recommend_dots')}>
+            {useRecommend.recommendData?.map((recommend, i) => {
               return (
-                <RecommendCard
+                <RecommendCardSwipe
                   key={i}
                   swipe={useSwipe.isSwipe}
                   imageSrc={useRecommend.recommendImage[i]}
@@ -38,14 +38,15 @@ const RecommendList = () => {
                 />
               );
             })}
-        </Slider>
+          </Slider>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-2 px-2 py-4">
         {!useSwipe.isSwipe &&
           useRecommend.recommendData?.map((recommend, i) => {
             return (
-              <RecommendCard
+              <RecommendCardSwipe
                 key={i}
                 swipe={useSwipe.isSwipe}
                 imageSrc={useRecommend.recommendImage[i]}

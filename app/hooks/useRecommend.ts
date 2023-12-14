@@ -1,11 +1,14 @@
 import { create } from 'zustand';
 
 export interface imageZipProps {
-  title: string;
-  link: string;
-  thumbnail: string;
-  sizeheight: string;
-  sizewidth: string;
+  collection: string;
+  datetime: string;
+  display_sitename: string;
+  doc_url: string;
+  height: number;
+  image_url: string;
+  thumbnail_url: string;
+  width: number;
 }
 
 export interface recommendProps {
