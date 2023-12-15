@@ -1,3 +1,5 @@
+import { setCookie } from 'cookies-next';
+
 interface postScrapProps {
   scrap: {
     category: string;
@@ -29,10 +31,20 @@ export const getScrapList = async (access_token: string) => {
       },
     );
 
-    if (!res.ok) throw new Error('Failed to fetch data');
+    if (!res.ok) {
+      const access_token = res.headers.get('Authorization');
+
+      if (access_token) {
+        setCookie('access_token', access_token);
+        getScrapList(access_token);
+        return;
+      }
+
+      throw new Error('Failed to fetch data');
+    }
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     return data;
   } catch (error) {
@@ -59,7 +71,17 @@ export const postScrap = async ({ scrap, access_token }: postScrapProps) => {
       }),
     });
 
-    if (!res.ok) throw new Error('Failed to fetch data');
+    if (!res.ok) {
+      const access_token = res.headers.get('Authorization');
+
+      if (access_token) {
+        setCookie('access_token', access_token);
+        getScrapList(access_token);
+        return;
+      }
+
+      throw new Error('Failed to fetch data');
+    }
 
     const data = await res.json();
     // console.log(data);
@@ -85,10 +107,20 @@ export const deleteScrap = async ({
       },
     );
 
-    if (!res.ok) throw new Error('Failed to fetch data');
+    if (!res.ok) {
+      const access_token = res.headers.get('Authorization');
+
+      if (access_token) {
+        setCookie('access_token', access_token);
+        getScrapList(access_token);
+        return;
+      }
+
+      throw new Error('Failed to fetch data');
+    }
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     return data;
   } catch (error) {
