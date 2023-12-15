@@ -10,7 +10,6 @@ const ScrapPage = async () => {
   const access_token = getCookie('access_token', { cookies });
 
   const scrapList = await getScrapList(String(access_token));
-  console.log(scrapList);
 
   if (!hasToken) return <ErrorPage />;
 
