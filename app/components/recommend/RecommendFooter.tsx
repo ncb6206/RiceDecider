@@ -12,8 +12,11 @@ const RecommendFooter = () => {
   const splitRecom = decodeURI(String(params.recommendId)).split(' ');
 
   const onClick = () => {
-    console.log(splitRecom);
-    router.push(`/recommend/${splitRecom[0]} ${splitRecom[1]}`);
+    if (splitRecom[1] === '아시안') {
+      return router.push(`/recommend/${splitRecom[0]} ${splitRecom[1]} 음식`);
+    }
+
+    return router.push(`/recommend/${splitRecom[0]} ${splitRecom[1]}`);
   };
 
   const goCategory = () => {
@@ -24,7 +27,8 @@ const RecommendFooter = () => {
     <div className="my-2 mb-10 flex w-full flex-col gap-5 px-6">
       {useSwipe.isSwipe && (
         <>
-          {splitRecom[2] && (
+          {(splitRecom.length === 4 ||
+            (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (
             <Button
               label={`${splitRecom[1]}만 보고싶어요!`}
               onClick={onClick}
@@ -40,7 +44,8 @@ const RecommendFooter = () => {
       )}
       {!useSwipe.isSwipe && (
         <>
-          {splitRecom[2] && (
+          {(splitRecom.length === 4 ||
+            (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (
             <Button
               label={`${splitRecom[1]}만 보고싶어요!`}
               onClick={onClick}
