@@ -30,7 +30,7 @@ const RecommendFooter = () => {
           {(splitRecom.length === 4 ||
             (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (
             <Button
-              label={`${splitRecom[1]}만 보고싶어요!`}
+              label={`주변 ${splitRecom[1]} 더보기`}
               onClick={onClick}
               outline={true}
             />
@@ -47,7 +47,7 @@ const RecommendFooter = () => {
           {(splitRecom.length === 4 ||
             (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (
             <Button
-              label={`${splitRecom[1]}만 보고싶어요!`}
+              label={`주변 ${splitRecom[1]} 더보기`}
               onClick={onClick}
               outline={false}
             />
