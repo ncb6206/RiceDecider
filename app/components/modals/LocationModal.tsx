@@ -31,10 +31,21 @@ const LocationModal = () => {
     console.log(location, addressName, error, keyword);
 
     if (location && addressName) {
-      if (keyword !== undefined)
+      if (categoryName === '아시안') {
+        if (keyword !== undefined) {
+          return router.push(
+            `/recommend/${addressName} ${categoryName} 음식 ${keyword}`,
+          );
+        }
+
+        return router.push(`/recommend/${addressName} ${categoryName} 음식`);
+      }
+
+      if (keyword !== undefined) {
         return router.push(
           `/recommend/${addressName} ${categoryName} ${keyword}`,
         );
+      }
 
       return router.push(`/recommend/${addressName} ${categoryName}`);
     }
