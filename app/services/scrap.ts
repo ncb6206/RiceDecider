@@ -1,4 +1,4 @@
-import { setCookie } from 'cookies-next';
+import { deleteCookie, hasCookie, setCookie } from 'cookies-next';
 
 interface postScrapProps {
   scrap: {
@@ -32,12 +32,17 @@ export const getScrapList = async (access_token: string) => {
     );
 
     if (!res.ok) {
+      const hasToken = hasCookie('access_token');
       const access_token = res.headers.get('Authorization');
 
       if (access_token) {
         setCookie('access_token', access_token);
         getScrapList(access_token);
         return;
+      }
+
+      if (hasToken) {
+        deleteCookie('access_token');
       }
 
       throw new Error('Failed to fetch data');
@@ -72,12 +77,17 @@ export const postScrap = async ({ scrap, access_token }: postScrapProps) => {
     });
 
     if (!res.ok) {
+      const hasToken = hasCookie('access_token');
       const access_token = res.headers.get('Authorization');
 
       if (access_token) {
         setCookie('access_token', access_token);
         getScrapList(access_token);
         return;
+      }
+
+      if (hasToken) {
+        deleteCookie('access_token');
       }
 
       throw new Error('Failed to fetch data');
@@ -108,12 +118,17 @@ export const deleteScrap = async ({
     );
 
     if (!res.ok) {
+      const hasToken = hasCookie('access_token');
       const access_token = res.headers.get('Authorization');
 
       if (access_token) {
         setCookie('access_token', access_token);
         getScrapList(access_token);
         return;
+      }
+
+      if (hasToken) {
+        deleteCookie('access_token');
       }
 
       throw new Error('Failed to fetch data');
