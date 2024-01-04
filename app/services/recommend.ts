@@ -16,7 +16,7 @@ export const getRecommend = async (label: string) => {
     if (!res.ok) throw new Error('Failed to fetch data');
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     return data;
   } catch (error) {

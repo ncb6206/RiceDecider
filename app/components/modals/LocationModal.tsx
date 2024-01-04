@@ -12,7 +12,7 @@ import useQuestionStore from '@/app/hooks/useQuestionStore';
 const LocationModal = () => {
   const router = useRouter();
   const locationModal = useLocationModal();
-  const { location, address, getLocation, error } = useAddress();
+  const { location, address, getLocation } = useAddress();
   const useQuestion = useQuestionStore();
   const { keywordList, categoryName } = useQuestion;
 
@@ -28,7 +28,7 @@ const LocationModal = () => {
     const keyword = keywordList[Math.floor(Math.random() * keywordList.length)];
     getLocation();
 
-    console.log(location, addressName, error, keyword);
+    // console.log(location, addressName, error, keyword);
 
     if (location && addressName) {
       if (categoryName === '아시안') {

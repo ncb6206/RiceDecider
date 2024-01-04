@@ -17,12 +17,12 @@ export const useAddress = () => {
     const fetchAddress = async () => {
       if (location.longitude !== 0 && location.latitude !== 0) {
         const result = await getAddress(location);
-        console.log(result);
+        // console.log(result);
         setAddress(result);
       }
     };
 
-    console.log(location);
+    // console.log(location);
     fetchAddress();
   }, [location]);
 

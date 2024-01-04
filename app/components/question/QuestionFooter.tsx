@@ -33,7 +33,7 @@ const QuestionFooter = () => {
       useQuestionStore.setState({ finished: true });
     }
 
-    console.log(useQuestion);
+    // console.log(useQuestion);
 
     return useQuestionStore.setState({ disabled: false });
 

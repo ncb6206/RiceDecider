@@ -9,7 +9,7 @@ const QuestionPage = async ({ params }: { params: { questionId: string } }) => {
     return <ErrorPage />;
   }
 
-  console.log('question페이지', questions);
+  // console.log('question페이지', questions);
 
   return (
     <QuestionClient questions={questions} questionId={params.questionId} />

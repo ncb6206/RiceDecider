@@ -6,7 +6,7 @@ import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
 const ScrapList = () => {
   const useScrap = useScrapStore(state => state);
 
-  console.log(useScrap.scrapData);
+  // console.log(useScrap.scrapData);
 
   return (
     <div className="flex h-full w-full flex-col p-4">

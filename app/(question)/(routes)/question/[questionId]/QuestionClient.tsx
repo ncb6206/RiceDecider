@@ -17,7 +17,7 @@ interface QuestionClientProps {
 const QuestionClient = ({ questions, questionId }: QuestionClientProps) => {
   const useQuestion = useQuestionStore();
 
-  console.log(questions, decodeURI(questionId));
+  // console.log(questions, decodeURI(questionId));
   useEffect(() => {
     useQuestionStore.setState({
       questionData: questions,
