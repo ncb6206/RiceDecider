@@ -48,9 +48,10 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
       const scrapList = await getScrapList(String(access_token));
-      useScrapStore.setState({ scrapData: scrapList });
+      // console.log(scrapList, scrapList.length);
 
       if (scrapList.length !== 0) {
+        useScrapStore.setState({ scrapData: scrapList });
         useScrapStore.setState({
           scrapAddressData: scrapList?.map((scrap: scrapListProps) => {
             return scrap.restaurantAddress;

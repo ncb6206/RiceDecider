@@ -12,7 +12,7 @@ const QuestionButton = ({ index, label }: QuestionButtonProps) => {
 
   const onSelected = () => {
     useQuestion.onToggleSelect(index);
-    console.log(useQuestion);
+    // console.log(useQuestion);
   };
 
   return (

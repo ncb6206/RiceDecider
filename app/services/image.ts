@@ -1,6 +1,6 @@
 export const getRecommendImage = async (title: string) => {
   const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-  console.log(cleanTitle);
+  // console.log(cleanTitle);
 
   try {
     const res = await fetch(
@@ -17,7 +17,7 @@ export const getRecommendImage = async (title: string) => {
     if (!res.ok) throw new Error('Failed to fetch data');
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     return data.documents;
   } catch (error) {
@@ -27,7 +27,7 @@ export const getRecommendImage = async (title: string) => {
 
 export const getImages = async (title: string) => {
   const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-  console.log('getImages', cleanTitle);
+  // console.log('getImages', cleanTitle);
 
   try {
     const res = await fetch(
@@ -44,7 +44,7 @@ export const getImages = async (title: string) => {
     if (!res.ok) throw new Error('Failed to fetch data');
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     return data;
   } catch (error) {
