@@ -45,10 +45,10 @@ const config: Config = {
           100: '#F7FCD3',
         },
       },
-    },
-    fontFamily: {
-      Pretendard: ['Pretendard'],
-      SBAggro: ['SBAggro'],
+      fontFamily: {
+        Pretendard: ['Pretendard'],
+        SBAggro: ['SBAggro'],
+      },
     },
   },
   plugins: [],
