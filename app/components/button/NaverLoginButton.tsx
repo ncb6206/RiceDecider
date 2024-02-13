@@ -1,11 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { SiNaver } from 'react-icons/si';
+import toast from 'react-hot-toast';
 
 import { useNaverLogin } from '@/app/utils/naverLogin';
-import toast from 'react-hot-toast';
 import useTokenStore from '@/app/hooks/useToken';
-import { useRouter } from 'next/navigation';
 
 const NaverLoginButton = () => {
   const router = useRouter();
