@@ -1,9 +1,10 @@
 'use client';
 
-import Loader from '@/app/components/Loader';
-import getToken from '@/app/services/token';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import Loader from '@/app/components/Loader';
+import getToken from '@/app/services/token';
 
 const NaverPage = () => {
   const router = useRouter();

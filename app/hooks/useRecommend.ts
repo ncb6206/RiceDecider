@@ -36,6 +36,7 @@ interface RecommendStore {
   recommendData: Array<recommendProps>;
   recommendImage: Array<string>;
   information: informationProps;
+  setInformation: (info: informationProps) => void;
 }
 
 const useRecommendStore = create<RecommendStore>(set => ({
@@ -48,6 +49,7 @@ const useRecommendStore = create<RecommendStore>(set => ({
     roadAddress: '',
     imageZip: [],
   },
+  setInformation: info => set({ information: info }),
 }));
 
 export default useRecommendStore;

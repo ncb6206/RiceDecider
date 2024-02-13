@@ -7,11 +7,12 @@ import ScrapClient from './ScrapClient';
 
 const ScrapPage = async () => {
   const hasToken = hasCookie('access_token', { cookies });
+
+  if (!hasToken) return <ErrorPage />;
+
   const access_token = getCookie('access_token', { cookies });
 
   const scrapList = await getScrapList(String(access_token));
-
-  if (!hasToken) return <ErrorPage />;
 
   return <ScrapClient scrapList={scrapList} />;
 };

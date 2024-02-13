@@ -11,7 +11,9 @@ export interface scrapListProps {
 interface ScrapStore {
   scrapData: scrapListProps[];
   scrapAddressData: string[];
-  addScrapAddressData: (scrascrapAddressp: string) => void;
+  addScrapAddressData: (scrapAddress: string) => void;
+  setScrapData: (scrapList: scrapListProps[]) => void;
+  setScrapAddressData: (scrapAddress: string[]) => void;
 }
 
 const useScrapStore = create<ScrapStore>(set => ({
@@ -23,6 +25,8 @@ const useScrapStore = create<ScrapStore>(set => ({
 
       return { scrapAddressData: newScrapAddressList };
     }),
+  setScrapData: scrapList => set({ scrapData: scrapList }),
+  setScrapAddressData: scrapAddress => set({ scrapAddressData: scrapAddress }),
 }));
 
 export default useScrapStore;
