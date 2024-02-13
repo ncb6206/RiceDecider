@@ -36,4 +36,10 @@ const nextConfig = {
   },
 };
 
+if (process.env.NEXT_PUBLIC_NODE_ENV === 'prod') {
+  nextConfig.compiler = {
+    removeConsole: true,
+  };
+}
+
 module.exports = nextConfig;
