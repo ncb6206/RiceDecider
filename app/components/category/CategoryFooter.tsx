@@ -12,15 +12,13 @@ import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const CategoryFooter = () => {
   const router = useRouter();
-  const CategoryStore = useCategoryStore();
-  const QuestionStore = useQuestionStore();
+  const { categoryData, onResetSelected } = useCategoryStore();
+  const { onCreateSelect } = useQuestionStore();
   const [disabled, setDisabled] = useState(true);
   const [selectedList, setSelectedList] = useState<CategoryDataType[]>([]);
 
   useEffect(() => {
-    const selectedList = CategoryStore.categoryData.filter(
-      item => item.select === true,
-    );
+    const selectedList = categoryData.filter(item => item.select === true);
     setSelectedList(selectedList);
 
     if (selectedList.length > 0) {
@@ -28,16 +26,16 @@ const CategoryFooter = () => {
     }
 
     setDisabled(true);
-  }, [CategoryStore.categoryData]);
+  }, [categoryData]);
 
   const onClick = async () => {
-    QuestionStore.onCreateSelect();
+    onCreateSelect();
     router.push(`/question/${selectedList[0].name}`);
-    CategoryStore.onResetSelected();
+    onResetSelected();
   };
 
   const onReset = () => {
-    CategoryStore.onResetSelected();
+    onResetSelected();
   };
 
   return (

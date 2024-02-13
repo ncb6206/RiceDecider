@@ -13,12 +13,11 @@ const LocationModal = () => {
   const router = useRouter();
   const locationModal = useLocationModal();
   const { location, address, getLocation } = useAddress();
-  const useQuestion = useQuestionStore();
-  const { keywordList, categoryName } = useQuestion;
+  const { keywordList, categoryName, onResetkeywordList } = useQuestionStore();
 
   const onSubmit = async () => {
     locationModal.onClose();
-    useQuestion.onResetkeywordList();
+    onResetkeywordList();
 
     const addressName =
       address?.results[0].region.area2.name.replace(/\s/g, '') +

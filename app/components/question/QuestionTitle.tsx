@@ -4,8 +4,7 @@ import Title from '@/app/components/Title';
 import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const QuestionTitle = () => {
-  const useQuestion = useQuestionStore(state => state);
-  const { questionData, questionNumber } = useQuestion;
+  const { questionData, questionNumber } = useQuestionStore();
 
   return (
     <div className="my-5 w-full">

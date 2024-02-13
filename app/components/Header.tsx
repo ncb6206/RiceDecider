@@ -30,7 +30,7 @@ const Header = ({
   rightText,
   className,
 }: HeaderProps) => {
-  const useQuestion = useQuestionStore(state => state);
+  const { questionData, questionNumber } = useQuestionStore();
 
   return (
     <div
@@ -62,11 +62,9 @@ const Header = ({
             onClick={rightOnClick}
           />
         )}
-        {rightText &&
-          useQuestion.questionData.length !==
-            useQuestion.questionNumber + 1 && (
-            <TextButton label={rightText} onClick={rightOnClick} />
-          )}
+        {rightText && questionData.length !== questionNumber + 1 && (
+          <TextButton label={rightText} onClick={rightOnClick} />
+        )}
       </div>
     </div>
   );
