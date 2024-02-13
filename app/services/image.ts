@@ -1,10 +1,11 @@
-export const getRecommendImage = async (title: string) => {
-  const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-  // console.log(cleanTitle);
+import cleanTitle from '@/app/utils/cleanTitle';
 
+export const getRecommendImage = async (title: string) => {
   try {
     const res = await fetch(
-      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle}&page=1&size=1`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
+        title,
+      )}&page=1&size=1`,
       {
         method: 'GET',
         headers: {
@@ -26,12 +27,11 @@ export const getRecommendImage = async (title: string) => {
 };
 
 export const getImages = async (title: string) => {
-  const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-  // console.log('getImages', cleanTitle);
-
   try {
     const res = await fetch(
-      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle}&page=1&size=5`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
+        title,
+      )}&page=1&size=5`,
       {
         method: 'GET',
         headers: {
