@@ -25,11 +25,11 @@ interface RecommendClientProps {
 const RecommendClient = ({ recommendList }: RecommendClientProps) => {
   const useSwipe = useSwipeStore(state => state);
   const { hasToken, isLogin } = useTokenStore();
+  const { setRecommendData, setRecommendImage } = useRecommendStore();
+  const { setScrapData, setScrapAddressData } = useScrapStore();
 
   useEffect(() => {
-    useRecommendStore.setState({
-      recommendData: recommendList.slice(0, 4),
-    });
+    setRecommendData(recommendList.slice(0, 4));
 
     Promise.all(
       recommendList.slice(0, 4).map(async (item: recommendProps) => {
@@ -39,11 +39,7 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
         }
         return 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg';
       }),
-    ).then(imageUrls => {
-      useRecommendStore.setState({
-        recommendImage: imageUrls,
-      });
-    });
+    ).then(imageUrls => setRecommendImage(imageUrls));
 
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
@@ -51,12 +47,10 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
       // console.log(scrapList, scrapList.length);
 
       if (scrapList.length !== 0) {
-        useScrapStore.setState({ scrapData: scrapList });
-        useScrapStore.setState({
-          scrapAddressData: scrapList?.map((scrap: scrapListProps) => {
-            return scrap.restaurantAddress;
-          }),
-        });
+        setScrapData(scrapList);
+        setScrapAddressData(
+          scrapList?.map((scrap: scrapListProps) => scrap.restaurantAddress),
+        );
       }
     };
 
@@ -64,7 +58,15 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
     if (isLogin) {
       setScrapList();
     }
-  }, [hasToken, isLogin, recommendList]);
+  }, [
+    hasToken,
+    isLogin,
+    recommendList,
+    setRecommendData,
+    setRecommendImage,
+    setScrapAddressData,
+    setScrapData,
+  ]);
 
   return (
     <main

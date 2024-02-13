@@ -9,9 +9,9 @@ import useRecommendStore from '@/app/hooks/useRecommend';
 import SlickSetting from '@/app/components/slickSetting';
 
 const InformationCard = () => {
-  const useRecommend = useRecommendStore(state => state);
-  const { title, category, address, roadAddress, imageZip } =
-    useRecommend.information;
+  const { title, category, address, roadAddress, imageZip } = useRecommendStore(
+    state => state.information,
+  );
 
   return (
     <div className="w-full">

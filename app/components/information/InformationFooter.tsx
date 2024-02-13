@@ -2,16 +2,14 @@
 
 import Button from '@/app/components/button/Button';
 import useRecommendStore from '@/app/hooks/useRecommend';
+import cleanTitle from '@/app/utils/cleanTitle';
 
 const InformationFooter = () => {
-  const useRecommend = useRecommendStore(state => state);
+  const { information } = useRecommendStore();
 
   const onClick = () => {
     window.open(
-      `https://map.naver.com/p/search/${useRecommend.information.title.replace(
-        /<\/?[^>]+(>|$)/g,
-        '',
-      )}`,
+      `https://map.naver.com/p/search/${cleanTitle(information.title)}`,
     );
   };
 

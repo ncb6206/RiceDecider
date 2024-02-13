@@ -36,6 +36,8 @@ interface RecommendStore {
   recommendData: Array<recommendProps>;
   recommendImage: Array<string>;
   information: informationProps;
+  setRecommendData: (data: Array<recommendProps>) => void;
+  setRecommendImage: (image: Array<string>) => void;
   setInformation: (info: informationProps) => void;
 }
 
@@ -49,6 +51,8 @@ const useRecommendStore = create<RecommendStore>(set => ({
     roadAddress: '',
     imageZip: [],
   },
+  setRecommendData: data => set({ recommendData: data }),
+  setRecommendImage: image => set({ recommendImage: image }),
   setInformation: info => set({ information: info }),
 }));
 
