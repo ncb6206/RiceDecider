@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { getCookie } from 'cookies-next';
 
 import InformationCard from '@/app/components/information/InformationCard';
 import InformationFooter from '@/app/components/information/InformationFooter';
@@ -11,7 +12,6 @@ import useRecommendStore, {
 } from '@/app/hooks/useRecommend';
 import useTokenStore from '@/app/hooks/useToken';
 import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
-import { getCookie } from 'cookies-next';
 import { getScrapList } from '@/app/services/scrap';
 
 const InformationClient = ({
@@ -22,29 +22,27 @@ const InformationClient = ({
   imageZip: imageZipProps[];
 }) => {
   const { hasToken, isLogin } = useTokenStore();
+  const { setScrapData, setScrapAddressData } = useScrapStore();
+  const { setInformation } = useRecommendStore();
 
   useEffect(() => {
-    useRecommendStore.setState({
-      information: {
-        title: infomationList.title,
-        category: infomationList.category,
-        address: infomationList.address,
-        roadAddress: infomationList.roadAddress,
-        imageZip,
-      },
+    setInformation({
+      title: infomationList.title,
+      category: infomationList.category,
+      address: infomationList.address,
+      roadAddress: infomationList.roadAddress,
+      imageZip,
     });
 
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
       const scrapList = await getScrapList(String(access_token));
-      useScrapStore.setState({ scrapData: scrapList });
+      setScrapData(scrapList);
 
       if (scrapList.length !== 0) {
-        useScrapStore.setState({
-          scrapAddressData: scrapList?.map((scrap: scrapListProps) => {
-            return scrap.restaurantAddress;
-          }),
-        });
+        setScrapAddressData(
+          scrapList?.map((scrap: scrapListProps) => scrap.restaurantAddress),
+        );
       }
     };
 
@@ -52,7 +50,15 @@ const InformationClient = ({
     if (isLogin) {
       setScrapList();
     }
-  }, [hasToken, imageZip, infomationList, isLogin]);
+  }, [
+    hasToken,
+    imageZip,
+    infomationList,
+    isLogin,
+    setInformation,
+    setScrapAddressData,
+    setScrapData,
+  ]);
 
   return (
     <main className="flex h-full w-full flex-col items-center overflow-y-auto overflow-x-hidden">
