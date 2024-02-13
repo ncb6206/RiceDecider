@@ -10,11 +10,11 @@ interface ScrapClientProps {
 }
 
 const ScrapClient = ({ scrapList }: ScrapClientProps) => {
+  const { setScrapData } = useScrapStore();
+
   useEffect(() => {
-    useScrapStore.setState({
-      scrapData: scrapList,
-    });
-  }, [scrapList]);
+    setScrapData(scrapList);
+  }, [scrapList, setScrapData]);
 
   return (
     <main className="flex h-full flex-col items-center overflow-y-auto overflow-x-hidden">
