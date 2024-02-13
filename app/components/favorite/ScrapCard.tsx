@@ -5,9 +5,9 @@ import { FaLocationDot } from 'react-icons/fa6';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { getCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 import { deleteScrap, postScrap } from '@/app/services/scrap';
-import { useRouter } from 'next/navigation';
 import deleteToken from '@/app/utils/deleteToken';
 
 interface ScrapCardProps {

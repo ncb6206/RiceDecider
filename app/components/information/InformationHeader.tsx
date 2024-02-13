@@ -12,6 +12,7 @@ import { deleteScrap, postScrap } from '@/app/services/scrap';
 import useTokenStore from '@/app/hooks/useToken';
 import deleteToken from '@/app/utils/deleteToken';
 import useScrapStore from '@/app/hooks/useScrap';
+import cleanTitle from '@/app/utils/cleanTitle';
 
 const InformationHeader = () => {
   const [isScrap, setIsScrap] = useState(false);
@@ -23,16 +24,17 @@ const InformationHeader = () => {
   );
 
   const { isLogin } = useTokenStore();
-  const useRecommend = useRecommendStore(state => state);
-  const useScrap = useScrapStore(state => state);
-  const { address, roadAddress } = useRecommend.information;
+  const { scrapAddressData } = useScrapStore();
+  const { address, roadAddress } = useRecommendStore(
+    state => state.information,
+  );
 
   useEffect(() => {
-    if (useScrap.scrapAddressData.length !== 0) {
-      if (useScrap.scrapAddressData.includes(address)) return setIsScrap(true);
+    if (scrapAddressData.length !== 0) {
+      if (scrapAddressData.includes(address)) return setIsScrap(true);
       setIsScrap(false);
     }
-  }, [address, useScrap.scrapAddressData]);
+  }, [address, scrapAddressData]);
 
   const goBack = () => {
     router.back();
@@ -45,10 +47,7 @@ const InformationHeader = () => {
         realCategory: categoryName,
         title,
         ttwwfew: title,
-        detailURL: `https://map.naver.com/p/search/${title.replace(
-          /<\/?[^>]+(>|$)/g,
-          '',
-        )}`,
+        detailURL: `https://map.naver.com/p/search/${cleanTitle(title)}`,
         address,
         radAddress: roadAddress,
       },

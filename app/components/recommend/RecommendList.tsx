@@ -12,7 +12,7 @@ import RecommendCardSwipe from './RecommendCardSwipe';
 
 const RecommendList = () => {
   const useSwipe = useSwipeStore();
-  const useRecommend = useRecommendStore(state => state);
+  const { recommendData, recommendImage } = useRecommendStore();
   const { isLogin } = useTokenStore();
   const { location } = useAddress();
 
@@ -21,12 +21,12 @@ const RecommendList = () => {
       <div className={`w-4/5`}>
         {useSwipe.isSwipe && (
           <Slider {...SlickSetting('recommend_dots')}>
-            {useRecommend.recommendData?.map((recommend, i) => {
+            {recommendData?.map((recommend, i) => {
               return (
                 <RecommendCardSwipe
                   key={i}
                   swipe={useSwipe.isSwipe}
-                  imageSrc={useRecommend.recommendImage[i]}
+                  imageSrc={recommendImage[i]}
                   title={recommend.title}
                   keywordList={recommend.category}
                   address={recommend.address}
@@ -44,12 +44,12 @@ const RecommendList = () => {
 
       <div className="grid grid-cols-2 gap-2 px-2 py-4">
         {!useSwipe.isSwipe &&
-          useRecommend.recommendData?.map((recommend, i) => {
+          recommendData?.map((recommend, i) => {
             return (
               <RecommendCardSwipe
                 key={i}
                 swipe={useSwipe.isSwipe}
-                imageSrc={useRecommend.recommendImage[i]}
+                imageSrc={recommendImage[i]}
                 title={recommend.title}
                 keywordList={recommend.category}
                 address={recommend.address}

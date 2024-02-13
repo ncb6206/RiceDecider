@@ -15,8 +15,13 @@ interface QuestionStore {
   disabled: boolean;
   finished: boolean;
   selected: Array<number>;
-  questionData: Array<QuestionDataProps>;
   keywordList: Array<string>;
+  questionData: Array<QuestionDataProps>;
+  setQuestionNumber: (questionNum: number) => void;
+  setFinished: (finish: boolean) => void;
+  setDisabled: (disable: boolean) => void;
+  setQuestionData: (question: Array<QuestionDataProps>) => void;
+  setCategoryName: (category: string) => void;
   onToggleSelect: (index: number) => void;
   onResetSelected: () => void;
   onResetNumber: () => void;
@@ -33,6 +38,11 @@ const useQuestionStore = create<QuestionStore>(set => ({
   selected: [],
   keywordList: [],
   questionData: [],
+  setQuestionNumber: questionNum => set({ questionNumber: questionNum }),
+  setFinished: finish => set({ finished: finish }),
+  setDisabled: disable => set({ disabled: disable }),
+  setQuestionData: question => set({ questionData: question }),
+  setCategoryName: category => set({ categoryName: category }),
   onToggleSelect: (index: number) =>
     set(state => {
       const newSelected = [...state.selected];

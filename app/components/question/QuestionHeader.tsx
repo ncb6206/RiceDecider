@@ -8,23 +8,25 @@ import useQuestionStore from '@/app/hooks/useQuestionStore';
 
 const QuestionHeader = () => {
   const router = useRouter();
-  const useQuestion = useQuestionStore();
-
-  const { questionNumber, questionData } = useQuestion;
+  const {
+    questionNumber,
+    questionData,
+    setQuestionNumber,
+    setFinished,
+    onResetSelected,
+  } = useQuestionStore();
 
   const back = () => {
     router.back();
-    useQuestionStore.setState({ questionNumber: 0, finished: false });
-    useQuestion.onResetSelected();
+    setQuestionNumber(0);
+    setFinished(false);
+    onResetSelected();
   };
 
   const skip = () => {
     if (questionNumber < questionData.length - 1) {
-      useQuestionStore.setState({
-        questionNumber: questionNumber + 1,
-      });
-
-      useQuestion.onResetSelected();
+      setQuestionNumber(questionNumber + 1);
+      onResetSelected();
     }
   };
 

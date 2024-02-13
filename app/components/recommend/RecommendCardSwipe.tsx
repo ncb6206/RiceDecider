@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { ILocation } from '@/app/hooks/useGeoLocation';
 import { deleteScrap, postScrap } from '@/app/services/scrap';
 import deleteToken from '@/app/utils/deleteToken';
+import cleanTitle from '@/app/utils/cleanTitle';
 import useScrapStore from '@/app/hooks/useScrap';
 import RecommendSwipe from './RecommendSwipe';
 import RecommendCard from './RecommendCard';
@@ -41,23 +42,25 @@ const RecommendCardSwipe = ({
   const router = useRouter();
   const token = getCookie('access_token');
   const param = useParams();
-  const useScrap = useScrapStore(state => state);
+  const { scrapAddressData, addScrapAddressData, setScrapAddressData } =
+    useScrapStore();
 
   const [addressName, categoryName] = decodeURI(
     String(param.recommendId),
   ).split(' ');
-  const cleanTitle = title.replace(/<\/?[^>]+(>|$)/g, '');
-
-  useEffect(() => {
-    if (useScrap.scrapAddressData.length !== 0) {
-      if (useScrap.scrapAddressData.includes(address)) return setIsScrap(true);
-      setIsScrap(false);
-    }
-  }, [address, useScrap.scrapAddressData]);
 
   const goInformation = () => {
-    router.push(`/information/${addressName}&${cleanTitle}&${categoryName}`);
+    router.push(
+      `/information/${addressName}&${cleanTitle(title)}&${categoryName}`,
+    );
   };
+
+  useEffect(() => {
+    if (scrapAddressData.length !== 0) {
+      if (scrapAddressData.includes(address)) return setIsScrap(true);
+      setIsScrap(false);
+    }
+  }, [address, scrapAddressData]);
 
   const onScrap = async () => {
     const response = await postScrap({
@@ -75,7 +78,7 @@ const RecommendCardSwipe = ({
 
     if (response.length !== 0) {
       toast('스크랩 되었습니다!');
-      useScrap.addScrapAddressData(address);
+      addScrapAddressData(address);
       setIsScrap(true);
       return;
     }
@@ -93,11 +96,9 @@ const RecommendCardSwipe = ({
 
     if (response.length !== 0) {
       toast('스크랩이 취소되었습니다!');
-      useScrapStore.setState({
-        scrapAddressData: useScrap.scrapAddressData.filter(
-          thisAddress => thisAddress !== address,
-        ),
-      });
+      setScrapAddressData(
+        scrapAddressData.filter(thisAddress => thisAddress !== address),
+      );
       setIsScrap(false);
       return;
     }

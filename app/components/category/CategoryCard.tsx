@@ -1,7 +1,8 @@
 'use client';
 
-import useCategoryStore from '@/app/hooks/useCategoryStore';
 import React, { SVGProps } from 'react';
+
+import useCategoryStore from '@/app/hooks/useCategoryStore';
 
 interface CategoryCardProps {
   id: number;
@@ -11,10 +12,10 @@ interface CategoryCardProps {
 }
 
 const CategoryCard = ({ id, icon: Icon, label, select }: CategoryCardProps) => {
-  const CategoryStore = useCategoryStore();
+  const { onToggleSelect } = useCategoryStore();
 
   const onClickSelect = () => {
-    CategoryStore.onToggleSelect(id);
+    onToggleSelect(id);
   };
 
   return (
