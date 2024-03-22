@@ -10,11 +10,11 @@ import RecommendTitle from '@/app/components/recommend/RecommendTitle';
 import useRecommendStore, {
   imageZipProps,
   recommendProps,
-} from '@/app/hooks/useRecommend';
-import useSwipeStore from '@/app/hooks/useSwipeStore';
-import useTokenStore from '@/app/hooks/useToken';
+} from '@/app/store/recommend';
+import useSwipeStore from '@/app/store/swipe';
+import useTokenStore from '@/app/store/token';
 import { getRecommendImage } from '@/app/services/image';
-import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
+import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 import { getScrapList } from '@/app/services/scrap';
 import { getCookie } from 'cookies-next';
 
@@ -23,7 +23,7 @@ interface RecommendClientProps {
 }
 
 const RecommendClient = ({ recommendList }: RecommendClientProps) => {
-  const useSwipe = useSwipeStore(state => state);
+  const useSwipe = useSwipeStore();
   const { hasToken, isLogin } = useTokenStore();
   const { setRecommendData, setRecommendImage } = useRecommendStore();
   const { setScrapData, setScrapAddressData } = useScrapStore();

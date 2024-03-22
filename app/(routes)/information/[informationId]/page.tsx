@@ -2,7 +2,7 @@ import InformationClient from './InformationClient';
 
 import { getImages } from '@/app/services/image';
 import ErrorPage from '@/app/error';
-import { recommendProps } from '@/app/hooks/useRecommend';
+import { recommendProps } from '@/app/store/recommend';
 import clearWord from '@/app/utils/clearWord';
 import { getInformation } from '@/app/services/information';
 

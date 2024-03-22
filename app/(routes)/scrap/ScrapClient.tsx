@@ -2,7 +2,7 @@
 
 import ScrapHeader from '@/app/components/favorite/ScrapHeader';
 import ScrapList from '@/app/components/favorite/ScrapList';
-import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
+import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 import { useEffect } from 'react';
 
 interface ScrapClientProps {
@@ -10,11 +10,11 @@ interface ScrapClientProps {
 }
 
 const ScrapClient = ({ scrapList }: ScrapClientProps) => {
-  const { setScrapData } = useScrapStore();
+  const scrapStore = useScrapStore();
 
   useEffect(() => {
-    setScrapData(scrapList);
-  }, [scrapList, setScrapData]);
+    scrapStore.setScrapData(scrapList);
+  }, [scrapList, scrapStore]);
 
   return (
     <main className="flex h-full flex-col items-center overflow-y-auto overflow-x-hidden">

@@ -6,9 +6,7 @@ import QuestionFooter from '@/app/components/question/QuestionFooter';
 import QuestionHeader from '@/app/components/question/QuestionHeader';
 import QuestionList from '@/app/components/question/QuestionList';
 import QuestionTitle from '@/app/components/question/QuestionTitle';
-import useQuestionStore, {
-  QuestionDataProps,
-} from '@/app/hooks/useQuestionStore';
+import useQuestionStore, { QuestionDataProps } from '@/app/store/question';
 
 interface QuestionClientProps {
   questions: QuestionDataProps[];
@@ -16,16 +14,15 @@ interface QuestionClientProps {
 }
 
 const QuestionClient = ({ questions, questionId }: QuestionClientProps) => {
-  const { setQuestionData, setCategoryName, questionNumber, onResetNumber } =
-    useQuestionStore();
+  const questionStore = useQuestionStore();
 
   // console.log(questions, decodeURI(questionId));
   useEffect(() => {
-    setQuestionData(questions);
-    setCategoryName(decodeURI(questionId));
+    questionStore.setQuestionData(questions);
+    questionStore.setCategoryName(decodeURI(questionId));
 
-    if (questionNumber !== 0) {
-      onResetNumber();
+    if (questionStore.questionNumber !== 0) {
+      questionStore.onResetNumber();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questions]);

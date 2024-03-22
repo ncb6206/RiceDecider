@@ -9,9 +9,9 @@ import InformationHeader from '@/app/components/information/InformationHeader';
 import useRecommendStore, {
   imageZipProps,
   recommendProps,
-} from '@/app/hooks/useRecommend';
-import useTokenStore from '@/app/hooks/useToken';
-import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
+} from '@/app/store/recommend';
+import useTokenStore from '@/app/store/token';
+import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 import { getScrapList } from '@/app/services/scrap';
 
 const InformationClient = ({
@@ -21,16 +21,17 @@ const InformationClient = ({
   infomationList: recommendProps;
   imageZip: imageZipProps[];
 }) => {
+  const { title, category, address, roadAddress } = infomationList;
   const { hasToken, isLogin } = useTokenStore();
-  const { setScrapData, setScrapAddressData } = useScrapStore();
   const { setInformation } = useRecommendStore();
+  const { setScrapData, setScrapAddressData } = useScrapStore();
 
   useEffect(() => {
     setInformation({
-      title: infomationList.title,
-      category: infomationList.category,
-      address: infomationList.address,
-      roadAddress: infomationList.roadAddress,
+      title,
+      category,
+      address,
+      roadAddress,
       imageZip,
     });
 
@@ -51,13 +52,16 @@ const InformationClient = ({
       setScrapList();
     }
   }, [
+    address,
+    category,
     hasToken,
     imageZip,
-    infomationList,
     isLogin,
+    roadAddress,
     setInformation,
     setScrapAddressData,
     setScrapData,
+    title,
   ]);
 
   return (

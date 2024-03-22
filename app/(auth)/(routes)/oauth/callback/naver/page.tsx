@@ -1,7 +1,7 @@
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import Loader from '@/app/components/Loader';
 import getToken from '@/app/services/token';
@@ -17,7 +17,6 @@ const NaverPage = () => {
       if (code && state) {
         const response = await getToken({ code, state });
         // console.log('페이지', response);
-
         if (response.access_token && response.refresh_token) {
           return router.push('/category');
         }
@@ -36,5 +35,4 @@ const NaverPage = () => {
     </div>
   );
 };
-
 export default NaverPage;
