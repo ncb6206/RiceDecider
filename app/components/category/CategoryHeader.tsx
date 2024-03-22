@@ -7,10 +7,10 @@ import { BiSolidHome } from 'react-icons/bi';
 
 import Header from '@/app/components/Header';
 import useTokenStore from '@/app/store/token';
-import useModalStore from '@/app/store/modal';
+import useLoginModalStore from '@/app/store/loginModal';
 
 const CategoryHeader = () => {
-  const { onOpen } = useModalStore();
+  const { onOpen } = useLoginModalStore();
   const { hasToken, isLogin } = useTokenStore();
   const router = useRouter();
 

@@ -7,17 +7,17 @@ import Modal from './Modal';
 
 import { useAddress } from '@/app/hooks/useAddress';
 import useQuestionStore from '@/app/store/question';
-import useModalStore from '@/app/store/modal';
+import useLocationModalStore from '@/app/store/locationModal';
 
 const LocationModal = () => {
   const router = useRouter();
-  const modalStore = useModalStore();
+  const locationModalStore = useLocationModalStore();
   const { location, address, getLocation } = useAddress();
   const questionStore = useQuestionStore();
   const { keywordList, categoryName } = questionStore;
 
   const onSubmit = async () => {
-    modalStore.onClose();
+    locationModalStore.onClose();
     questionStore.onResetkeywordList();
 
     const addressName =
@@ -56,7 +56,7 @@ const LocationModal = () => {
   return (
     <>
       <Modal
-        isOpen={modalStore.isOpen}
+        isOpen={locationModalStore.isOpen}
         content={
           <p className="text-center text-base font-medium">
             주변 식당을 추천해드릴게요.
@@ -64,7 +64,7 @@ const LocationModal = () => {
         }
         leftLabel={'싫어요'}
         rightLabel={'좋아요'}
-        onClose={modalStore.onClose}
+        onClose={locationModalStore.onClose}
         onSubmit={onSubmit}
       />
     </>

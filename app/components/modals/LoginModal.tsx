@@ -1,17 +1,17 @@
 'use client';
 
 import Modal from './Modal';
-import useModalStore from '@/app/store/modal';
 import { useNaverLogin } from '@/app/hooks/useNaverLogin';
+import useLoginModalStore from '@/app/store/loginModal';
 
 const LoginModal = () => {
   const naverLogin = useNaverLogin();
-  const modalStore = useModalStore();
+  const loginModalStore = useLoginModalStore();
 
   return (
     <>
       <Modal
-        isOpen={modalStore.isOpen}
+        isOpen={loginModalStore.isOpen}
         content={
           <p className="text-center text-base font-medium">
             로그인이 필요한 메뉴에요. <br /> 로그인하여 찜한 식당을
@@ -20,7 +20,7 @@ const LoginModal = () => {
         }
         leftLabel="취소"
         rightLabel="로그인"
-        onClose={modalStore.onClose}
+        onClose={loginModalStore.onClose}
         onSubmit={naverLogin}
       />
     </>

@@ -5,13 +5,13 @@ import { useEffect } from 'react';
 import Button from '@/app/components/button/Button';
 import ResultButton from '@/app/components/button/ResultButton';
 import useQuestionStore from '@/app/store/question';
-import useModalStore from '@/app/store/modal';
+import useLocationModalStore from '@/app/store/locationModal';
 
 const QuestionFooter = () => {
   const questionStore = useQuestionStore();
   const { selected, finished, questionNumber, questionData, disabled } =
     questionStore;
-  const modalStore = useModalStore();
+  const locationModalStore = useLocationModalStore();
 
   useEffect(() => {
     if (selected.length === 0) {
@@ -50,7 +50,7 @@ const QuestionFooter = () => {
       questionStore.onAddKeyword(AnswerKeyword);
     }
 
-    modalStore.onOpen();
+    locationModalStore.onOpen();
   };
 
   return (
