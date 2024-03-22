@@ -1,4 +1,4 @@
-import { ILocation } from '@/app/hooks/useGeoLocation';
+import { ILocation } from '../hooks/useGeoLocation';
 
 export const getAddress = async ({ longitude, latitude }: ILocation) => {
   try {
