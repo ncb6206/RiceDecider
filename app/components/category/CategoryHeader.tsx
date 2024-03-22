@@ -6,11 +6,11 @@ import { useEffect } from 'react';
 import { BiSolidHome } from 'react-icons/bi';
 
 import Header from '@/app/components/Header';
-import useLoginModal from '@/app/hooks/useLoginModal';
-import useTokenStore from '@/app/hooks/useToken';
+import useTokenStore from '@/app/store/token';
+import useModalStore from '@/app/store/modal';
 
 const CategoryHeader = () => {
-  const useLogin = useLoginModal();
+  const { onOpen } = useModalStore();
   const { hasToken, isLogin } = useTokenStore();
   const router = useRouter();
 
@@ -28,7 +28,7 @@ const CategoryHeader = () => {
       router.refresh();
       return;
     }
-    useLogin.onOpen();
+    onOpen();
   };
 
   return (

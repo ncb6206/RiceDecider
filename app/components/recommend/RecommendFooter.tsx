@@ -2,12 +2,12 @@
 
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
-import useSwipeStore from '@/app/hooks/useSwipeStore';
+import useSwipeStore from '@/app/store/swipe';
 import { useParams, useRouter } from 'next/navigation';
 
 const RecommendFooter = () => {
   const params = useParams();
-  const useSwipe = useSwipeStore();
+  const { isSwipe } = useSwipeStore();
   const router = useRouter();
   const splitRecom = decodeURI(String(params.recommendId)).split(' ');
 
@@ -25,7 +25,7 @@ const RecommendFooter = () => {
 
   return (
     <div className="my-2 mb-10 flex w-full flex-col gap-5 px-6">
-      {useSwipe.isSwipe && (
+      {isSwipe && (
         <>
           {(splitRecom.length === 4 ||
             (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (
@@ -42,7 +42,7 @@ const RecommendFooter = () => {
           />
         </>
       )}
-      {!useSwipe.isSwipe && (
+      {!isSwipe && (
         <>
           {(splitRecom.length === 4 ||
             (splitRecom.length === 3 && splitRecom[2] !== '음식')) && (

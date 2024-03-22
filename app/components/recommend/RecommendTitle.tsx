@@ -1,14 +1,14 @@
 'use client';
 
 import Title from '@/app/components/Title';
-import useSwipeStore from '@/app/hooks/useSwipeStore';
+import useSwipeStore from '@/app/store/swipe';
 
 const RecommendTitle = () => {
-  const useSwipe = useSwipeStore(state => state);
+  const { isSwipe } = useSwipeStore();
 
   return (
     <>
-      {useSwipe.isSwipe && (
+      {isSwipe && (
         <div className="flex w-full p-6">
           <Title
             title="이 식당은 어떠신가요?"
@@ -18,7 +18,7 @@ const RecommendTitle = () => {
           />
         </div>
       )}
-      {!useSwipe.isSwipe && <div className="p-3" />}
+      {!isSwipe && <div className="p-3" />}
     </>
   );
 };

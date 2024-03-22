@@ -6,23 +6,23 @@ import { PiListBold } from 'react-icons/pi';
 
 import Header from '@/app/components/Header';
 import { useRouter } from 'next/navigation';
-import useSwipeStore from '@/app/hooks/useSwipeStore';
+import useSwipeStore from '@/app/store/swipe';
 
 const RecommendHeader = () => {
   const router = useRouter();
-  const useSwipe = useSwipeStore();
+  const { isSwipe, onSwipe } = useSwipeStore();
 
   const onClickHome = () => {
     router.push('/');
   };
 
   const onClickSwipe = () => {
-    useSwipe.onSwipe();
+    onSwipe();
   };
 
   return (
     <>
-      {useSwipe.isSwipe && (
+      {isSwipe && (
         <Header
           leftIcon={BiSolidHome}
           leftOnClick={onClickHome}
@@ -31,7 +31,7 @@ const RecommendHeader = () => {
           className="bg-rose-500 p-5 text-white"
         />
       )}
-      {!useSwipe.isSwipe && (
+      {!isSwipe && (
         <Header
           leftIcon={BsChevronLeft}
           leftOnClick={onClickSwipe}

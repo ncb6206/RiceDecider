@@ -9,7 +9,7 @@ import { ILocation } from '@/app/hooks/useGeoLocation';
 import { deleteScrap, postScrap } from '@/app/services/scrap';
 import deleteToken from '@/app/utils/deleteToken';
 import cleanTitle from '@/app/utils/cleanTitle';
-import useScrapStore from '@/app/hooks/useScrap';
+import useScrapStore from '@/app/store/scrap';
 import RecommendSwipe from './RecommendSwipe';
 import RecommendCard from './RecommendCard';
 
@@ -42,8 +42,8 @@ const RecommendCardSwipe = ({
   const router = useRouter();
   const token = getCookie('access_token');
   const param = useParams();
-  const { scrapAddressData, addScrapAddressData, setScrapAddressData } =
-    useScrapStore();
+  const scrapStore = useScrapStore();
+  const { scrapAddressData } = scrapStore;
 
   const [addressName, categoryName] = decodeURI(
     String(param.recommendId),
@@ -78,7 +78,7 @@ const RecommendCardSwipe = ({
 
     if (response.length !== 0) {
       toast('스크랩 되었습니다!');
-      addScrapAddressData(address);
+      scrapStore.addScrapAddressData(address);
       setIsScrap(true);
       return;
     }
@@ -96,7 +96,7 @@ const RecommendCardSwipe = ({
 
     if (response.length !== 0) {
       toast('스크랩이 취소되었습니다!');
-      setScrapAddressData(
+      scrapStore.setScrapAddressData(
         scrapAddressData.filter(thisAddress => thisAddress !== address),
       );
       setIsScrap(false);

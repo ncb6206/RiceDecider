@@ -1,6 +1,6 @@
 'use client';
 
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
 
 interface QuestionButtonProps {
   index: number;
@@ -8,10 +8,10 @@ interface QuestionButtonProps {
 }
 
 const QuestionButton = ({ index, label }: QuestionButtonProps) => {
-  const { selected, onToggleSelect } = useQuestionStore();
+  const questionStore = useQuestionStore();
 
   const onSelected = () => {
-    onToggleSelect(index);
+    questionStore.onToggleSelect(index);
     // console.log(useQuestion);
   };
 
@@ -19,7 +19,7 @@ const QuestionButton = ({ index, label }: QuestionButtonProps) => {
     <button
       onClick={onSelected}
       className={`relative w-full select-none rounded-[20px] border border-rose-500 p-5 text-left text-lg font-medium text-rose-500 transition md:hover:bg-rose-200 md:hover:opacity-80
-      ${selected[0] === index ? 'bg-rose-200' : 'bg-white'}
+      ${questionStore.selected[0] === index ? 'bg-rose-200' : 'bg-white'}
       `}
     >
       {label}

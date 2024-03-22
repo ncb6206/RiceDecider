@@ -4,29 +4,24 @@ import { useRouter } from 'next/navigation';
 import { AiOutlineLeft } from 'react-icons/ai';
 
 import Header from '@/app/components/Header';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
 
 const QuestionHeader = () => {
   const router = useRouter();
-  const {
-    questionNumber,
-    questionData,
-    setQuestionNumber,
-    setFinished,
-    onResetSelected,
-  } = useQuestionStore();
+  const questionStore = useQuestionStore();
+  const { questionNumber, questionData } = questionStore;
 
   const back = () => {
     router.back();
-    setQuestionNumber(0);
-    setFinished(false);
-    onResetSelected();
+    questionStore.setQuestionNumber(0);
+    questionStore.setFinished(false);
+    questionStore.onResetSelected();
   };
 
   const skip = () => {
     if (questionNumber < questionData.length - 1) {
-      setQuestionNumber(questionNumber + 1);
-      onResetSelected();
+      questionStore.setQuestionNumber(questionStore.questionNumber + 1);
+      questionStore.onResetSelected();
     }
   };
 

@@ -4,36 +4,28 @@ import { useEffect } from 'react';
 
 import Button from '@/app/components/button/Button';
 import ResultButton from '@/app/components/button/ResultButton';
-import useLocationModal from '@/app/hooks/useLocationModal';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
+import useModalStore from '@/app/store/modal';
 
 const QuestionFooter = () => {
-  const {
-    selected,
-    finished,
-    questionNumber,
-    questionData,
-    disabled,
-    setQuestionNumber,
-    setFinished,
-    setDisabled,
-    onAddKeyword,
-    onResetSelected,
-  } = useQuestionStore();
-  const useLocation = useLocationModal();
+  const questionStore = useQuestionStore();
+  const { selected, finished, questionNumber, questionData, disabled } =
+    questionStore;
+  const modalStore = useModalStore();
 
   useEffect(() => {
     if (selected.length === 0) {
-      if (finished === true) setFinished(false);
+      if (finished === true) questionStore.setFinished(false);
 
-      return setDisabled(true);
+      return questionStore.setDisabled(true);
     }
 
-    if (questionNumber + 1 === questionData.length) setFinished(true);
+    if (questionNumber + 1 === questionData.length)
+      questionStore.setFinished(true);
 
     // console.log(useQuestion);
 
-    return setDisabled(false);
+    return questionStore.setDisabled(false);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected, disabled]);
@@ -43,11 +35,11 @@ const QuestionFooter = () => {
       questionData[questionNumber].answerDtoList[selected[0]].keyword;
 
     if (AnswerKeyword !== 'none') {
-      onAddKeyword(AnswerKeyword);
+      questionStore.onAddKeyword(AnswerKeyword);
     }
 
-    setQuestionNumber(questionNumber + 1);
-    onResetSelected();
+    questionStore.setQuestionNumber(questionNumber + 1);
+    questionStore.onResetSelected();
   };
 
   const onClickFinished = () => {
@@ -55,10 +47,10 @@ const QuestionFooter = () => {
       questionData[questionNumber].answerDtoList[selected[0]].keyword;
 
     if (AnswerKeyword !== 'none') {
-      onAddKeyword(AnswerKeyword);
+      questionStore.onAddKeyword(AnswerKeyword);
     }
 
-    useLocation.onOpen();
+    modalStore.onOpen();
   };
 
   return (

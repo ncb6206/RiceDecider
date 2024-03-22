@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
-import useCategoryStore, {
-  CategoryDataType,
-} from '@/app/hooks/useCategoryStore';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useCategoryStore, { CategoryDataType } from '@/app/store/category';
+import useQuestionStore from '@/app/store/question';
 
 const CategoryFooter = () => {
   const router = useRouter();
-  const { categoryData, onResetSelected } = useCategoryStore();
-  const { onCreateSelect } = useQuestionStore();
+  const categoryStore = useCategoryStore();
+  const questionStore = useQuestionStore();
   const [disabled, setDisabled] = useState(true);
   const [selectedList, setSelectedList] = useState<CategoryDataType[]>([]);
 
   useEffect(() => {
-    const selectedList = categoryData.filter(item => item.select === true);
+    const selectedList = categoryStore.categoryData.filter(
+      item => item.select === true,
+    );
     setSelectedList(selectedList);
 
     if (selectedList.length > 0) {
@@ -26,16 +26,16 @@ const CategoryFooter = () => {
     }
 
     setDisabled(true);
-  }, [categoryData]);
+  }, [categoryStore.categoryData]);
 
   const onClick = async () => {
-    onCreateSelect();
+    questionStore.onCreateSelect();
     router.push(`/question/${selectedList[0].name}`);
-    onResetSelected();
+    categoryStore.onResetSelected();
   };
 
   const onReset = () => {
-    onResetSelected();
+    categoryStore.onResetSelected();
   };
 
   return (
