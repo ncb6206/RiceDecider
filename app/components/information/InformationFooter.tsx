@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/app/components/button/Button';
-import useRecommendStore from '@/app/hooks/useRecommend';
+import useRecommendStore from '@/app/store/recommend';
 import cleanTitle from '@/app/utils/cleanTitle';
 
 const InformationFooter = () => {

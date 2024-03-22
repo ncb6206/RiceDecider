@@ -1,7 +1,7 @@
 'use client';
 
 import CategoryCard from '@/app/components/category/CategoryCard';
-import useCategoryStore from '@/app/hooks/useCategoryStore';
+import useCategoryStore from '@/app/store/category';
 
 const CategoryList = () => {
   const { categoryData } = useCategoryStore();

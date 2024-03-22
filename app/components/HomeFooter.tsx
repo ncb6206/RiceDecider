@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import NaverLoginButton from '@/app/components/button/NaverLoginButton';
 import TextButton from '@/app/components/button/TextButton';
-import useTokenStore from '@/app/hooks/useToken';
+import useTokenStore from '@/app/store/token';
 import { useEffect } from 'react';
 
 export interface hasTokenPros {

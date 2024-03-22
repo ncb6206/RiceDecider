@@ -1,7 +1,7 @@
 'use client';
 import Logo from '@/public/logo.svg';
 import FavoriteCard from '@/app/components/favorite/ScrapCard';
-import useScrapStore, { scrapListProps } from '@/app/hooks/useScrap';
+import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 
 const ScrapList = () => {
   const { scrapData } = useScrapStore();

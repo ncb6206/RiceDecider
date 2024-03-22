@@ -7,11 +7,11 @@ import { useParams, useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
 
 import Header from '@/app/components/Header';
-import useRecommendStore from '@/app/hooks/useRecommend';
+import useRecommendStore from '@/app/store/recommend';
 import { deleteScrap, postScrap } from '@/app/services/scrap';
-import useTokenStore from '@/app/hooks/useToken';
+import useTokenStore from '@/app/store/token';
 import deleteToken from '@/app/utils/deleteToken';
-import useScrapStore from '@/app/hooks/useScrap';
+import useScrapStore from '@/app/store/scrap';
 import cleanTitle from '@/app/utils/cleanTitle';
 
 const InformationHeader = () => {

@@ -1,7 +1,7 @@
 'use client';
 
 import Logo from '@/public/logo.svg';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
 
 const ProgressBar = () => {
   const { questionData, questionNumber } = useQuestionStore();

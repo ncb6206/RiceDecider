@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 
 import '@/app/slick.css';
 import InformationKeyword from '@/app/components/information/informationKeyword';
-import useRecommendStore from '@/app/hooks/useRecommend';
+import useRecommendStore from '@/app/store/recommend';
 import SlickSetting from '@/app/components/slickSetting';
 
 const InformationCard = () => {

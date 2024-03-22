@@ -2,7 +2,7 @@
 
 import React, { SVGProps } from 'react';
 
-import useCategoryStore from '@/app/hooks/useCategoryStore';
+import useCategoryStore from '@/app/store/category';
 
 interface CategoryCardProps {
   id: number;

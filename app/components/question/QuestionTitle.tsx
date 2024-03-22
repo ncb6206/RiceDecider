@@ -1,7 +1,7 @@
 'use client';
 
 import Title from '@/app/components/Title';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
 
 const QuestionTitle = () => {
   const { questionData, questionNumber } = useQuestionStore();

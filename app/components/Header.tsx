@@ -4,9 +4,7 @@ import { IconType } from 'react-icons';
 
 import ProgressBar from '@/app/components/ProgressBar';
 import TextButton from '@/app/components/button/TextButton';
-import useQuestionStore, {
-  QuestionDataProps,
-} from '@/app/hooks/useQuestionStore';
+import useQuestionStore, { QuestionDataProps } from '@/app/store/question';
 
 interface HeaderProps {
   leftIcon?: IconType;

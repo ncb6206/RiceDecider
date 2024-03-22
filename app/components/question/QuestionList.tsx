@@ -1,7 +1,7 @@
 'use client';
 
 import QuestionButton from '@/app/components/question/QuestionButton';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
 
 const QuestionList = () => {
   const { questionData, questionNumber } = useQuestionStore();
