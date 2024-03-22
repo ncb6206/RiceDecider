@@ -28,20 +28,22 @@ interface CategoryStore {
   onResetSelected: () => void;
 }
 
+const categoryData = [
+  { icon: Korean, label: '한식', name: '한식', select: false },
+  { icon: Chinese, label: '중식', name: '중식', select: false },
+  { icon: Japanese, label: '일식', name: '일식', select: false },
+  { icon: American, label: '양식', name: '양식', select: false },
+  { icon: Beer, label: '패스트푸드', name: '패스트푸드', select: false },
+  { icon: Asian, label: '아시안', name: '아시안', select: false },
+  { icon: Chicken, label: '치킨', name: '치킨', select: false },
+  { icon: Pizza, label: '피자', name: '피자', select: false },
+  { icon: Snack, label: '분식', name: '분식', select: false },
+  { icon: Cafe, label: '카페/디저트', name: '디저트', select: false },
+  { icon: Hamburger, label: '술집', name: '술집', select: false },
+];
+
 const useCategoryStore = create<CategoryStore>(set => ({
-  categoryData: [
-    { icon: Korean, label: '한식', name: '한식', select: false },
-    { icon: Chinese, label: '중식', name: '중식', select: false },
-    { icon: Japanese, label: '일식', name: '일식', select: false },
-    { icon: American, label: '양식', name: '양식', select: false },
-    { icon: Beer, label: '패스트푸드', name: '패스트푸드', select: false },
-    { icon: Asian, label: '아시안', name: '아시안', select: false },
-    { icon: Chicken, label: '치킨', name: '치킨', select: false },
-    { icon: Pizza, label: '피자', name: '피자', select: false },
-    { icon: Snack, label: '분식', name: '분식', select: false },
-    { icon: Cafe, label: '카페/디저트', name: '디저트', select: false },
-    { icon: Hamburger, label: '술집', name: '술집', select: false },
-  ],
+  categoryData,
   selectedCategory: [],
   onToggleSelect: (index: number) =>
     set(state => {
