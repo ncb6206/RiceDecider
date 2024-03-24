@@ -5,19 +5,20 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import Modal from './Modal';
 
-import useLocationModal from '@/app/hooks/useLocationModal';
 import { useAddress } from '@/app/hooks/useAddress';
-import useQuestionStore from '@/app/hooks/useQuestionStore';
+import useQuestionStore from '@/app/store/question';
+import useLocationModalStore from '@/app/store/locationModal';
 
 const LocationModal = () => {
   const router = useRouter();
-  const locationModal = useLocationModal();
+  const locationModalStore = useLocationModalStore();
   const { location, address, getLocation } = useAddress();
-  const { keywordList, categoryName, onResetkeywordList } = useQuestionStore();
+  const questionStore = useQuestionStore();
+  const { keywordList, categoryName } = questionStore;
 
   const onSubmit = async () => {
-    locationModal.onClose();
-    onResetkeywordList();
+    locationModalStore.onClose();
+    questionStore.onResetkeywordList();
 
     const addressName =
       address?.results[0].region.area2.name.replace(/\s/g, '') +
@@ -55,7 +56,7 @@ const LocationModal = () => {
   return (
     <>
       <Modal
-        isOpen={locationModal.isOpen}
+        isOpen={locationModalStore.isOpen}
         content={
           <p className="text-center text-base font-medium">
             주변 식당을 추천해드릴게요.
@@ -63,7 +64,7 @@ const LocationModal = () => {
         }
         leftLabel={'싫어요'}
         rightLabel={'좋아요'}
-        onClose={locationModal.onClose}
+        onClose={locationModalStore.onClose}
         onSubmit={onSubmit}
       />
     </>
