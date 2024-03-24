@@ -1,46 +1,34 @@
 'use client';
 
 import { useEffect } from 'react';
+import { getCookie } from 'cookies-next';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 import Empty from '@/app/components/Empty';
-import RecommendFooter from '@/app/components/recommend/RecommendFooter';
-import RecommendHeader from '@/app/components/recommend/RecommendHeader';
-import RecommendList from '@/app/components/recommend/RecommendList';
-import RecommendTitle from '@/app/components/recommend/RecommendTitle';
-import useRecommendStore, {
-  imageZipProps,
-  recommendProps,
-} from '@/app/store/recommend';
+import RecommendFooter from '@/app/(routes)/recommend/[recommendId]/_component/RecommendFooter';
+import RecommendHeader from '@/app/(routes)/recommend/[recommendId]/_component/RecommendHeader';
+import RecommendList from '@/app/(routes)/recommend/[recommendId]/_component/RecommendList';
+import RecommendTitle from '@/app/(routes)/recommend/[recommendId]/_component/RecommendTitle';
 import useSwipeStore from '@/app/store/swipe';
 import useTokenStore from '@/app/store/token';
-import { getRecommendImage } from '@/app/services/image';
 import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 import { getScrapList } from '@/app/services/scrap';
-import { getCookie } from 'cookies-next';
+import { getRecommend } from '@/app/services/recommend';
 
-interface RecommendClientProps {
-  recommendList: recommendProps[];
-}
-
-const RecommendClient = ({ recommendList }: RecommendClientProps) => {
+const RecommendClient = () => {
   const useSwipe = useSwipeStore();
+  const { recommendId } = useParams();
   const { hasToken, isLogin } = useTokenStore();
-  const { setRecommendData, setRecommendImage } = useRecommendStore();
   const { setScrapData, setScrapAddressData } = useScrapStore();
+  const { data: recommendList } = useQuery({
+    queryKey: ['recommends'],
+    queryFn: () => getRecommend(decodeURI(recommendId as string), 'client'),
+  });
+
+  // console.log(decodeURI(recommendId as string), recommendList?.items);
 
   useEffect(() => {
-    setRecommendData(recommendList.slice(0, 4));
-
-    Promise.all(
-      recommendList.slice(0, 4).map(async (item: recommendProps) => {
-        const imageUrl: imageZipProps[] = await getRecommendImage(item.title);
-        if (imageUrl?.length !== 0) {
-          return imageUrl[0]?.image_url;
-        }
-        return 'https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo-available_87543-11093.jpg';
-      }),
-    ).then(imageUrls => setRecommendImage(imageUrls));
-
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
       const scrapList = await getScrapList(String(access_token));
@@ -58,15 +46,7 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
     if (isLogin) {
       setScrapList();
     }
-  }, [
-    hasToken,
-    isLogin,
-    recommendList,
-    setRecommendData,
-    setRecommendImage,
-    setScrapAddressData,
-    setScrapData,
-  ]);
+  }, [hasToken, isLogin, setScrapAddressData, setScrapData]);
 
   return (
     <main
@@ -76,8 +56,8 @@ const RecommendClient = ({ recommendList }: RecommendClientProps) => {
     >
       <RecommendHeader />
       <RecommendTitle />
-      {recommendList.length === 0 && <Empty />}
-      {recommendList.length !== 0 && <RecommendList />}
+      {recommendList?.items?.length === 0 && <Empty />}
+      {recommendList?.items?.length !== 0 && <RecommendList />}
       <div className="flex-1" />
       <RecommendFooter />
     </main>

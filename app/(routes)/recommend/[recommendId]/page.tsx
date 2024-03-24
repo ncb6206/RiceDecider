@@ -1,14 +1,32 @@
-import { getRecommend } from '@/app/services/recommend';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
+
 import RecommendClient from './RecommendClient';
+import { getRecommend } from '@/app/services/recommend';
 
 const RecommendPage = async ({
   params,
 }: {
   params: { recommendId: string };
 }) => {
-  const recommends = await getRecommend(decodeURI(params.recommendId));
+  const queryClient = new QueryClient();
+  const decodeId = decodeURI(params.recommendId);
 
-  return <RecommendClient recommendList={recommends.items} />;
+  await queryClient.prefetchQuery({
+    queryKey: ['recommends'],
+    queryFn: () => getRecommend(decodeId, 'server'),
+  });
+
+  const dehydratedstate = dehydrate(queryClient);
+
+  return (
+    <HydrationBoundary state={dehydratedstate}>
+      <RecommendClient />
+    </HydrationBoundary>
+  );
 };
 
 export default RecommendPage;
