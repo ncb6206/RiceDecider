@@ -3,15 +3,14 @@ import cleanTitle from '@/app/utils/cleanTitle';
 export const getRecommendImage = async (title: string) => {
   try {
     const res = await fetch(
-      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
-        title,
-      )}&page=1&size=1`,
+      `/v2/search/image?query=${cleanTitle(title)}&page=1&size=1`,
       {
-        method: 'GET',
+        next: { tags: ['recommends', 'image'] },
         headers: {
           Authorization:
             `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ID}` as string,
         },
+        cache: 'no-store',
       },
     );
 
@@ -29,15 +28,14 @@ export const getRecommendImage = async (title: string) => {
 export const getImages = async (title: string) => {
   try {
     const res = await fetch(
-      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
-        title,
-      )}&page=1&size=5`,
+      `/v2/search/image?query=${cleanTitle(title)}&page=1&size=5`,
       {
-        method: 'GET',
+        next: { tags: ['information', 'image'] },
         headers: {
           Authorization:
             `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_ID}` as string,
         },
+        cache: 'no-store',
       },
     );
 
