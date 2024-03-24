@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 
-import QuestionFooter from '@/app/components/question/QuestionFooter';
-import QuestionHeader from '@/app/components/question/QuestionHeader';
-import QuestionList from '@/app/components/question/QuestionList';
-import QuestionTitle from '@/app/components/question/QuestionTitle';
+import QuestionFooter from '@/app/(routes)/question/[questionId]/_component/QuestionFooter';
+import QuestionHeader from '@/app/(routes)/question/[questionId]/_component/QuestionHeader';
+import QuestionList from '@/app/(routes)/question/[questionId]/_component/QuestionList';
+import QuestionTitle from '@/app/(routes)/question/[questionId]/_component/QuestionTitle';
 import useQuestionStore, { QuestionDataProps } from '@/app/store/question';
 
 interface QuestionClientProps {

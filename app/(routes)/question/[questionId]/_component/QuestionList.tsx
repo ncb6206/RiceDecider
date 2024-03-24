@@ -1,6 +1,6 @@
 'use client';
 
-import QuestionButton from '@/app/components/question/QuestionButton';
+import QuestionButton from '@/app/(routes)/question/[questionId]/_component/QuestionButton';
 import useQuestionStore from '@/app/store/question';
 
 const QuestionList = () => {

@@ -3,9 +3,9 @@
 import { BiSolidHome } from 'react-icons/bi';
 import { BsChevronLeft } from 'react-icons/bs';
 import { PiListBold } from 'react-icons/pi';
+import { useRouter } from 'next/navigation';
 
 import Header from '@/app/components/Header';
-import { useRouter } from 'next/navigation';
 import useSwipeStore from '@/app/store/swipe';
 
 const RecommendHeader = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import CategoryCard from '@/app/components/category/CategoryCard';
+import CategoryCard from '@/app/(routes)/category/_component/CategoryCard';
 import useCategoryStore from '@/app/store/category';
 
 const CategoryList = () => {

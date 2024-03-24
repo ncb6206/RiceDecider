@@ -1,9 +1,10 @@
 'use client';
 
-import ScrapHeader from '@/app/components/favorite/ScrapHeader';
-import ScrapList from '@/app/components/favorite/ScrapList';
-import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 import { useEffect } from 'react';
+
+import ScrapHeader from '@/app/(routes)/scrap/_component/ScrapHeader';
+import ScrapList from '@/app/(routes)/scrap/_component/ScrapList';
+import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 
 interface ScrapClientProps {
   scrapList: scrapListProps[];

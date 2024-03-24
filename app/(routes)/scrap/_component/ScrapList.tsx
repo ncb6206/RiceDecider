@@ -1,6 +1,7 @@
 'use client';
+
 import Logo from '@/public/logo.svg';
-import FavoriteCard from '@/app/components/favorite/ScrapCard';
+import FavoriteCard from '@/app/(routes)/scrap/_component/ScrapCard';
 import useScrapStore, { scrapListProps } from '@/app/store/scrap';
 
 const ScrapList = () => {

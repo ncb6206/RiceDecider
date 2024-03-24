@@ -1,9 +1,10 @@
 'use client';
 
+import { useParams, useRouter } from 'next/navigation';
+
 import Button from '@/app/components/button/Button';
 import TextButton from '@/app/components/button/TextButton';
 import useSwipeStore from '@/app/store/swipe';
-import { useParams, useRouter } from 'next/navigation';
 
 const RecommendFooter = () => {
   const params = useParams();
