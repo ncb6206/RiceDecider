@@ -3,7 +3,9 @@ import cleanTitle from '@/app/utils/cleanTitle';
 export const getRecommendImage = async (title: string) => {
   try {
     const res = await fetch(
-      `/v2/search/image?query=${cleanTitle(title)}&page=1&size=1`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
+        title,
+      )}&page=1&size=1`,
       {
         next: { tags: ['recommends', 'image'] },
         headers: {
@@ -28,7 +30,9 @@ export const getRecommendImage = async (title: string) => {
 export const getImages = async (title: string) => {
   try {
     const res = await fetch(
-      `/v2/search/image?query=${cleanTitle(title)}&page=1&size=5`,
+      `https://dapi.kakao.com/v2/search/image?query=${cleanTitle(
+        title,
+      )}&page=1&size=5`,
       {
         next: { tags: ['information', 'image'] },
         headers: {
