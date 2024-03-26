@@ -7,12 +7,13 @@ import { useParams } from 'next/navigation';
 import '@/app/slick.css';
 import SlickSetting from '@/app/components/slickSetting';
 import useSwipeStore from '@/app/store/swipe';
-import { imageZipProps, recommendProps } from '@/app/store/recommend';
 import { useAddress } from '@/app/hooks/useAddress';
 import useTokenStore from '@/app/store/token';
 import RecommendCardSwipe from './RecommendCardSwipe';
 import { getRecommend } from '@/app/services/recommend';
 import { getRecommendImage } from '@/app/services/image';
+import { ImageQueryType } from '@/app/models/Image';
+import { RestaurantProps } from '@/app/models/Restaurant';
 
 const RecommendList = () => {
   const { isSwipe } = useSwipeStore();
@@ -20,23 +21,38 @@ const RecommendList = () => {
   const { isLogin } = useTokenStore();
   const { location } = useAddress();
   const { data: recommendList } = useQuery({
-    queryKey: ['recommends'],
-    queryFn: () => getRecommend(decodeURI(recommendId as string), 'client'),
+    queryKey: ['recommends', decodeURI(recommendId as string)],
+    queryFn: getRecommend,
+    staleTime: 120 * 1000,
+    gcTime: 300 * 1000,
   });
 
-  const { data: recommendImage } = useQuery<string[]>({
-    queryKey: ['recommends', 'image'],
-    queryFn: () => {
-      const imageUrlArray = Promise.all(
-        recommendList?.items?.map(async (item: recommendProps) => {
-          const imageUrl: imageZipProps[] = await getRecommendImage(item.title);
-          if (imageUrl?.length !== 0) {
-            return imageUrl[0]?.image_url;
-          }
-        }),
-      ).then(imageUrls => imageUrls);
-      return imageUrlArray;
-    },
+  console.log(recommendList);
+
+  const getImageUrls = async () => {
+    if (!recommendList?.items) {
+      return [];
+    }
+
+    const imageUrlArray = recommendList.items.map(
+      async (item: RestaurantProps) => {
+        const imageUrl: ImageQueryType = await getRecommendImage(item.title);
+        if (imageUrl?.documents.length !== 0) {
+          return imageUrl?.documents[0]?.image_url;
+        }
+        return '';
+      },
+    );
+
+    const imageUrls = await Promise.all(imageUrlArray);
+    return imageUrls;
+  };
+
+  const { data: recommendImage, isLoading } = useQuery<string[]>({
+    queryKey: ['recommends', 'images', decodeURI(recommendId as string)],
+    queryFn: getImageUrls,
+    staleTime: 120 * 1000,
+    gcTime: 300 * 1000,
   });
 
   return (
@@ -45,12 +61,13 @@ const RecommendList = () => {
         {isSwipe && (
           <Slider {...SlickSetting('recommend_dots')}>
             {recommendList?.items?.map(
-              (recommend: recommendProps, i: number) => {
+              (recommend: RestaurantProps, i: number) => {
                 return (
                   <RecommendCardSwipe
                     key={i}
                     swipe={isSwipe}
                     imageSrc={recommendImage && recommendImage[i]}
+                    isImageLoading={isLoading}
                     title={recommend.title}
                     keywordList={recommend.category}
                     address={recommend.address}
@@ -69,12 +86,13 @@ const RecommendList = () => {
 
       <div className="grid grid-cols-2 gap-2 px-2 py-4">
         {!isSwipe &&
-          recommendList?.items?.map((recommend: recommendProps, i: number) => {
+          recommendList?.items?.map((recommend: RestaurantProps, i: number) => {
             return (
               <RecommendCardSwipe
                 key={i}
                 swipe={isSwipe}
                 imageSrc={recommendImage && recommendImage[i]}
+                isImageLoading={isLoading}
                 title={recommend.title}
                 keywordList={recommend.category}
                 address={recommend.address}

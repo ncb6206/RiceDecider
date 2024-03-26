@@ -17,7 +17,7 @@ const InformationClient = () => {
   useEffect(() => {
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
-      const scrapList = await getScrapList(String(access_token));
+      const scrapList = await getScrapList(access_token as string);
       setScrapData(scrapList);
 
       if (scrapList.length !== 0) {

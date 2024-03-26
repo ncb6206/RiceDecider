@@ -22,8 +22,10 @@ const RecommendClient = () => {
   const { hasToken, isLogin } = useTokenStore();
   const { setScrapData, setScrapAddressData } = useScrapStore();
   const { data: recommendList } = useQuery({
-    queryKey: ['recommends'],
-    queryFn: () => getRecommend(decodeURI(recommendId as string), 'client'),
+    queryKey: ['recommends', decodeURI(recommendId as string)],
+    queryFn: getRecommend,
+    staleTime: 120 * 1000,
+    gcTime: 300 * 1000,
   });
 
   // console.log(decodeURI(recommendId as string), recommendList?.items);
@@ -31,7 +33,7 @@ const RecommendClient = () => {
   useEffect(() => {
     const setScrapList = async () => {
       const access_token = getCookie('access_token');
-      const scrapList = await getScrapList(String(access_token));
+      const scrapList = await getScrapList(access_token as string);
       // console.log(scrapList, scrapList.length);
 
       if (scrapList.length !== 0) {

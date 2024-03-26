@@ -1,15 +1,15 @@
-'use client';
-
 import Image from 'next/image';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
 
 import { ILocation } from '@/app/hooks/useGeoLocation';
 import getDis from '@/app/utils/getDis';
+import { Skeleton } from '@/app/components/ui/skeleton';
 
 interface RecommendSwipeProps {
   title: string;
   imageSrc?: string;
+  isImageLoading: boolean;
   isLogin: boolean;
   isScrap: boolean;
   keywordList: string;
@@ -24,6 +24,7 @@ interface RecommendSwipeProps {
 const RecommendSwipe = ({
   title,
   imageSrc,
+  isImageLoading,
   isLogin,
   isScrap,
   keywordList,
@@ -39,17 +40,19 @@ const RecommendSwipe = ({
 
   return (
     <div className="shadow-3xl flex flex-col gap-2 rounded-lg bg-white p-4">
-      {imageSrc && (
-        <Image
-          src={imageSrc || blankImage}
-          alt="사진"
-          width={320}
-          height={352}
-          loading="lazy"
-          className="mb-2 mt-4 h-[22rem] w-[20rem] hover:cursor-pointer"
-          onClick={goInformation}
-        />
-      )}
+      <div className="relative mb-2 mt-4 h-[22rem] w-[20rem] hover:cursor-pointer">
+        {isImageLoading && !imageSrc && <Skeleton className="h-full w-full" />}
+        {imageSrc && (
+          <Image
+            src={imageSrc || blankImage}
+            alt="사진"
+            fill
+            sizes="300px"
+            priority
+            onClick={goInformation}
+          />
+        )}
+      </div>
       <div className="flex justify-between gap-2">
         <p
           onClick={goInformation}

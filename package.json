@@ -16,9 +16,12 @@
     "@tanstack/react-query-next-experimental": "^5.8.4",
     "@types/react-slick": "^0.23.12",
     "axios": "^1.6.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
     "cookies-next": "^4.1.0",
     "crypto-js": "^4.2.0",
     "geolib": "^3.3.4",
+    "lucide-react": "^0.363.0",
     "next": "^14.0.1",
     "next-auth": "^4.24.4",
     "react": "^18",
@@ -27,7 +30,10 @@
     "react-icons": "^4.11.0",
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
+    "sharp": "^0.33.3",
     "slick-carousel": "^1.8.1",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^4.4.6"
   },
   "devDependencies": {

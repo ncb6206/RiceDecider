@@ -5,36 +5,48 @@ import toast from 'react-hot-toast';
 import { AiFillHeart, AiOutlineHeart, AiOutlineLeft } from 'react-icons/ai';
 import { useParams, useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
+import { useQuery } from '@tanstack/react-query';
 
 import Header from '@/app/components/Header';
-import useRecommendStore from '@/app/store/recommend';
 import { deleteScrap, postScrap } from '@/app/services/scrap';
 import useTokenStore from '@/app/store/token';
 import deleteToken from '@/app/utils/deleteToken';
 import useScrapStore from '@/app/store/scrap';
 import cleanTitle from '@/app/utils/cleanTitle';
+import { getInformation } from '@/app/services/information';
+import { RestaurantProps } from '@/app/models/Restaurant';
+import clearWord from '@/app/utils/clearWord';
+import parseInformationId from '@/app/utils/parseInformationId';
 
 const InformationHeader = () => {
   const [isScrap, setIsScrap] = useState(false);
   const router = useRouter();
   const params = useParams();
   const token = getCookie('access_token');
-  const [, title, categoryName] = decodeURI(String(params.informationId)).split(
-    '%26',
+  const { locationParam, titleParam, categoryParam } = parseInformationId(
+    params.informationId as string,
   );
 
   const { isLogin } = useTokenStore();
   const { scrapAddressData } = useScrapStore();
-  const { address, roadAddress } = useRecommendStore(
-    state => state.information,
+  const { data: informationList } = useQuery({
+    queryKey: ['information', `${locationParam} ${titleParam}`],
+    queryFn: getInformation,
+    staleTime: 120 * 1000,
+    gcTime: 300 * 1000,
+  });
+
+  const informationData = informationList?.items?.find(
+    (item: RestaurantProps) => clearWord(item.title) === clearWord(titleParam),
   );
 
   useEffect(() => {
     if (scrapAddressData.length !== 0) {
-      if (scrapAddressData.includes(address)) return setIsScrap(true);
+      if (scrapAddressData.includes(informationData?.address as string))
+        return setIsScrap(true);
       setIsScrap(false);
     }
-  }, [address, scrapAddressData]);
+  }, [informationData?.address, scrapAddressData]);
 
   const goBack = () => {
     router.back();
@@ -43,15 +55,15 @@ const InformationHeader = () => {
   const onScrap = async () => {
     const response = await postScrap({
       scrap: {
-        category: categoryName,
-        realCategory: categoryName,
-        title,
-        ttwwfew: title,
-        detailURL: `https://map.naver.com/p/search/${cleanTitle(title)}`,
-        address,
-        radAddress: roadAddress,
+        category: categoryParam,
+        realCategory: categoryParam,
+        title: titleParam,
+        ttwwfew: titleParam,
+        detailURL: `https://map.naver.com/p/search/${cleanTitle(titleParam)}`,
+        address: informationData?.address as string,
+        radAddress: informationData?.roadAddress as string,
       },
-      access_token: String(token),
+      access_token: token as string,
     });
 
     if (response.length !== 0) {
@@ -65,8 +77,8 @@ const InformationHeader = () => {
 
   const onDeleteScrap = async () => {
     const response = await deleteScrap({
-      address,
-      access_token: String(token),
+      address: informationData?.address as string,
+      access_token: token as string,
     });
 
     if (response.length !== 0) {

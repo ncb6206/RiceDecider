@@ -7,17 +7,17 @@ import {
 import RecommendClient from './RecommendClient';
 import { getRecommend } from '@/app/services/recommend';
 
-const RecommendPage = async ({
-  params,
-}: {
+interface Props {
   params: { recommendId: string };
-}) => {
+}
+
+const RecommendPage = async ({ params }: Props) => {
   const queryClient = new QueryClient();
-  const decodeId = decodeURI(params.recommendId);
+  const recommendId = decodeURI(params.recommendId);
 
   await queryClient.prefetchQuery({
-    queryKey: ['recommends'],
-    queryFn: () => getRecommend(decodeId, 'server'),
+    queryKey: ['recommends', recommendId],
+    queryFn: getRecommend,
   });
 
   const dehydratedstate = dehydrate(queryClient);

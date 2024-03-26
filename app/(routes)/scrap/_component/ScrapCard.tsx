@@ -32,7 +32,7 @@ const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
         address,
         radAddress: address,
       },
-      access_token: String(token),
+      access_token: token as string,
     });
 
     if (response.length !== 0) {
@@ -49,7 +49,7 @@ const ScrapCard = ({ title, category, address }: ScrapCardProps) => {
   const onDeleteScrap = async () => {
     const response = await deleteScrap({
       address,
-      access_token: String(token),
+      access_token: token as string,
     });
 
     if (response.length !== 0) {
