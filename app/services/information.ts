@@ -1,14 +1,20 @@
-export const getInformation = async (
-  label: string,
-  mode: 'server' | 'client',
-) => {
+import { QueryFunction } from '@tanstack/react-query';
+
+import { RestaurantType } from '@/app/models/Restaurant';
+
+export const getInformation: QueryFunction<
+  RestaurantType,
+  [_1: string, string]
+> = async ({ queryKey }: { queryKey: [string, string] }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [_1, informationId] = queryKey;
   try {
     const res = await fetch(
-      mode === 'server'
-        ? `https://openapi.naver.com/v1/search/local.json?query=${label}&display=5&start=1&sort=random`
-        : `/v1/search/local.json?query=${label}&display=5&start=1&sort=random`,
+      typeof window !== 'undefined'
+        ? `/v1/search/local.json?query=${informationId}&display=5&start=1&sort=random`
+        : `https://openapi.naver.com/v1/search/local.json?query=${informationId}&display=5&start=1&sort=random`,
       {
-        next: { tags: ['information'] },
+        next: { tags: ['information', informationId] },
         headers: {
           'X-Naver-Client-Id': process.env
             .NEXT_PUBLIC_NAVER_CLIENT_ID as string,
