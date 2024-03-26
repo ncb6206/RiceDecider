@@ -16,6 +16,7 @@ import RecommendCard from './RecommendCard';
 interface RecommnedCardSwipeProps {
   swipe: boolean;
   imageSrc?: string;
+  isImageLoading: boolean;
   title: string;
   keywordList: string;
   address: string;
@@ -29,6 +30,7 @@ interface RecommnedCardSwipeProps {
 const RecommendCardSwipe = ({
   swipe,
   imageSrc,
+  isImageLoading,
   title,
   keywordList,
   address,
@@ -46,7 +48,7 @@ const RecommendCardSwipe = ({
   const { scrapAddressData } = scrapStore;
 
   const [addressName, categoryName] = decodeURI(
-    String(param.recommendId),
+    param.recommendId as string,
   ).split(' ');
 
   const goInformation = () => {
@@ -73,7 +75,7 @@ const RecommendCardSwipe = ({
         address,
         radAddress: roadAddress,
       },
-      access_token: String(token),
+      access_token: token as string,
     });
 
     if (response.length !== 0) {
@@ -91,7 +93,7 @@ const RecommendCardSwipe = ({
   const onDeleteScrap = async () => {
     const response = await deleteScrap({
       address,
-      access_token: String(token),
+      access_token: token as string,
     });
 
     if (response.length !== 0) {
@@ -114,6 +116,7 @@ const RecommendCardSwipe = ({
         <RecommendSwipe
           title={title}
           imageSrc={imageSrc}
+          isImageLoading={isImageLoading}
           isLogin={isLogin}
           isScrap={isScrap}
           keywordList={keywordList}
@@ -130,6 +133,7 @@ const RecommendCardSwipe = ({
         <RecommendCard
           title={title}
           imageSrc={imageSrc}
+          isImageLoading={isImageLoading}
           isLogin={isLogin}
           isScrap={isScrap}
           keywordList={keywordList}

@@ -1,15 +1,15 @@
-'use client';
-
 import Image from 'next/image';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
 
 import { ILocation } from '@/app/hooks/useGeoLocation';
 import getDis from '@/app/utils/getDis';
+import { Skeleton } from '@/app/components/ui/skeleton';
 
 interface RecommnedCardProps {
   title: string;
   imageSrc?: string;
+  isImageLoading: boolean;
   isLogin: boolean;
   isScrap: boolean;
   keywordList: string;
@@ -24,6 +24,7 @@ interface RecommnedCardProps {
 const RecommendCard = ({
   title,
   imageSrc,
+  isImageLoading,
   isLogin,
   isScrap,
   keywordList,
@@ -39,15 +40,18 @@ const RecommendCard = ({
 
   return (
     <div className="relative flex flex-col gap-2 rounded-lg bg-white shadow-md">
-      <Image
-        src={imageSrc || blankImage}
-        alt="사진"
-        width={320}
-        height={352}
-        className="h-[10rem] w-full rounded-t-lg hover:cursor-pointer"
-        loading="lazy"
-        onClick={goInformation}
-      />
+      <div className="relative h-[10rem] w-full rounded-t-lg hover:cursor-pointer">
+        {isImageLoading && !imageSrc && <Skeleton className="h-full w-full" />}
+        {imageSrc && (
+          <Image
+            src={imageSrc || blankImage}
+            alt="사진"
+            fill
+            sizes="300px"
+            onClick={goInformation}
+          />
+        )}
+      </div>
       {isLogin && (
         <div className="absolute right-3 top-3 flex rounded-3xl bg-black bg-opacity-80 p-2 hover:cursor-pointer">
           {!isScrap && (
