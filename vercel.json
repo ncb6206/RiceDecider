@@ -5,6 +5,10 @@
       "destination": "https://openapi.naver.com/v1/:path*"
     },
     {
+      "source": "/v2/search/:path*",
+      "destination": "https://dapi.kakao.com/v2/search/:path*"
+    },
+    {
       "source": "/v2/:path*",
       "destination": "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/:path*"
     }
