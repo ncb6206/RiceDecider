@@ -3,9 +3,7 @@ import { ILocation } from '../hooks/useGeoLocation';
 export const getAddress = async ({ longitude, latitude }: ILocation) => {
   try {
     const res = await fetch(
-      `/v2/gc?coords=${
-        String(longitude) + ',' + String(latitude)
-      }&output=json&orders=addr`,
+      `/v2/gc?coords=${longitude},${latitude}&output=json&orders=addr`,
       {
         method: 'GET',
         headers: {
