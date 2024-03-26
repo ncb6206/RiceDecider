@@ -27,8 +27,6 @@ const RecommendList = () => {
     gcTime: 300 * 1000,
   });
 
-  console.log(recommendList);
-
   const getImageUrls = async () => {
     if (!recommendList?.items) {
       return [];
