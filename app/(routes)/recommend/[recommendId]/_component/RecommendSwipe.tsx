@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { FaLocationDot } from 'react-icons/fa6';
